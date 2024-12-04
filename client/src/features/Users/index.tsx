@@ -1,9 +1,9 @@
-import { useState, Fragment } from 'react'
+import { useState } from 'react'
 import { Table } from '../../components/Table'
 import { useUsersQuery } from './queries'
 
 export default function Users() {
-  const [search, setSearch] = useState<string>('')
+  const [search, setSearch] = useState<string | undefined>(undefined)
   const {
     data,
     isError,
@@ -11,7 +11,7 @@ export default function Users() {
     isLoading,
     isFetchedAfterMount,
     isFetching,
-  } = useUsersQuery(1, search)
+  } = useUsersQuery({ page: 1, search })
 
   if (isLoading || isPending || isFetching) {
     return <div>Loading...</div>
