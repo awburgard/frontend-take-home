@@ -4,8 +4,18 @@ import { useUsersQuery } from './queries'
 
 export default function Users() {
   const [search, setSearch] = useState<string>('')
-  const { data, isError, isPending, isLoading, isFetchedAfterMount } =
-    useUsersQuery(1, search)
+  const {
+    data,
+    isError,
+    isPending,
+    isLoading,
+    isFetchedAfterMount,
+    isFetching,
+  } = useUsersQuery(1, search)
+
+  if (isLoading || isPending || isFetching) {
+    return <div>Loading...</div>
+  }
 
   return (
     <Table variant='surface'>
