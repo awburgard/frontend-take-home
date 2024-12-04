@@ -1,3 +1,13 @@
+import { Table } from '../../components/Table'
+
 export default function Roles() {
-  return <div>Roles</div>
+  return (
+    <Table variant='surface'>
+      <Table.Header>
+        <Table.Row>
+          <Table.Cell>Name</Table.Cell>
+        </Table.Row>
+      </Table.Header>
+    </Table>
+  )
 }
