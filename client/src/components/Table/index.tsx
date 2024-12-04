@@ -10,3 +10,4 @@ Table.Header = RadixTable.Header
 Table.Body = RadixTable.Body
 Table.Row = RadixTable.Row
 Table.Cell = RadixTable.Cell
+Table.RowHeaderCell = RadixTable.RowHeaderCell
