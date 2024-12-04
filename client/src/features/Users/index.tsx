@@ -1,6 +1,12 @@
+import { useState, Fragment } from 'react'
 import { Table } from '../../components/Table'
+import { useUsersQuery } from './queries'
 
 export default function Users() {
+  const [search, setSearch] = useState<string>('')
+  const { data, isError, isPending, isLoading, isFetchedAfterMount } =
+    useUsersQuery(1, search)
+
   return (
     <Table variant='surface'>
       <Table.Header>
@@ -12,26 +18,22 @@ export default function Users() {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        <Table.Row>
-          <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-          <Table.Cell>danilo@example.com</Table.Cell>
-          <Table.Cell>Developer</Table.Cell>
-          <Table.Cell>...</Table.Cell>
-        </Table.Row>
-
-        <Table.Row>
-          <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-          <Table.Cell>zahra@example.com</Table.Cell>
-          <Table.Cell>Admin</Table.Cell>
-          <Table.Cell>...</Table.Cell>
-        </Table.Row>
-
-        <Table.Row>
-          <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-          <Table.Cell>jasper@example.com</Table.Cell>
-          <Table.Cell>Developer</Table.Cell>
-          <Table.Cell>...</Table.Cell>
-        </Table.Row>
+        {isFetchedAfterMount ? (
+          <>
+            {data?.data.map((user) => {
+              return (
+                <Table.Row key={user.id}>
+                  <Table.RowHeaderCell>
+                    {user.first} {user.last}
+                  </Table.RowHeaderCell>
+                  <Table.Cell>{user.roleId}</Table.Cell>
+                  <Table.Cell>{user.createdAt}</Table.Cell>
+                  <Table.Cell>...</Table.Cell>
+                </Table.Row>
+              )
+            })}
+          </>
+        ) : null}
       </Table.Body>
     </Table>
   )
