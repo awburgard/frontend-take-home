@@ -5,6 +5,7 @@ import {
   Dialog,
   Button,
   Flex,
+  Strong,
 } from '@radix-ui/themes'
 import { useState } from 'react'
 import { useDeleteUserMutation } from './queries'
@@ -27,11 +28,16 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
     <>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <IconButton variant='ghost' radius='full'>
-            <DotsHorizontalIcon />
+          <IconButton
+            variant='ghost'
+            color='gray'
+            radius='full'
+            aria-label='Actions'
+          >
+            <DotsHorizontalIcon width='16px' height='16px' />
           </IconButton>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant='soft'>
+        <DropdownMenu.Content sideOffset={5}>
           {render(openDialog)}
         </DropdownMenu.Content>
       </DropdownMenu.Root>
@@ -40,7 +46,8 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
         <Dialog.Content>
           <Dialog.Title>Delete user</Dialog.Title>
           <Dialog.Description>
-            Are you sure? The user <b>{name}</b> will be permanently deleted.
+            Are you sure? The user <Strong>{name}</Strong> will be permanently
+            deleted.
           </Dialog.Description>
           <Flex gap='3' mt='4' justify='end'>
             <Dialog.Close>
@@ -53,17 +60,16 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
                 Cancel
               </Button>
             </Dialog.Close>
-            {/* <Dialog.Close> */}
-            <Button
-              size='2'
-              onClick={() => deleteUser(userId)}
-              color='red'
-              variant='soft'
-              loading={isPending}
-            >
-              Delete User
-            </Button>
-            {/* </Dialog.Close> */}
+            <Dialog.Close>
+              <Button
+                size='2'
+                onClick={() => deleteUser(userId)}
+                color='red'
+                variant='soft'
+              >
+                Delete User
+              </Button>
+            </Dialog.Close>
           </Flex>
         </Dialog.Content>
       </Dialog.Root>
