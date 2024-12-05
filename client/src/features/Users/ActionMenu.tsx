@@ -21,7 +21,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
   const openDialog = () => setDialogOpen(true)
   const closeDialog = () => setDialogOpen(false)
 
-  const { mutate: deleteUser } = useDeleteUserMutation()
+  const { mutate: deleteUser, isPending } = useDeleteUserMutation()
 
   return (
     <>
@@ -53,16 +53,17 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
                 Cancel
               </Button>
             </Dialog.Close>
-            <Dialog.Close>
-              <Button
-                size='2'
-                onClick={() => deleteUser(userId)}
-                color='red'
-                variant='soft'
-              >
-                Delete User
-              </Button>
-            </Dialog.Close>
+            {/* <Dialog.Close> */}
+            <Button
+              size='2'
+              onClick={() => deleteUser(userId)}
+              color='red'
+              variant='soft'
+              loading={isPending}
+            >
+              Delete User
+            </Button>
+            {/* </Dialog.Close> */}
           </Flex>
         </Dialog.Content>
       </Dialog.Root>

@@ -11,3 +11,4 @@ Table.Body = RadixTable.Body
 Table.Row = RadixTable.Row
 Table.Cell = RadixTable.Cell
 Table.RowHeaderCell = RadixTable.RowHeaderCell
+Table.ColumnHeaderCell = RadixTable.ColumnHeaderCell
