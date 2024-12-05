@@ -1,10 +1,11 @@
 import { useCallback, useState } from 'react'
 import { Table } from '../../components/Table'
 import { Search } from '../Search'
-import { Avatar, Button, DropdownMenu, Flex, Spinner } from '@radix-ui/themes'
+import { Button, DropdownMenu, Flex, Spinner } from '@radix-ui/themes'
 import { useDebounce } from '../../hooks/useDebouce'
 import { useRolesQuery } from './queries'
 import { formatDate } from '../../utils/formatDate'
+import ActionMenu from './ActionMenu'
 
 export default function Roles() {
   const [search, setSearch] = useState('')
@@ -19,13 +20,13 @@ export default function Roles() {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value)
     },
-    [search]
+    []
   )
 
   return (
     <>
       <Search
-        placeholder='Search by name...'
+        placeholder='Search by name or description...'
         search={search}
         onChange={handleSearchChange}
       />
@@ -50,7 +51,17 @@ export default function Roles() {
                     <Table.Cell>{role.isDefault ? 'Yes' : 'No'}</Table.Cell>
                     <Table.Cell>{formatDate(role.createdAt)}</Table.Cell>
                     <Table.Cell>
-                      {/* <ActionMenu roleId={role.id} name={role.name} /> */}
+                      <ActionMenu
+                        role={role}
+                        render={(openDialog) => (
+                          <>
+                            <DropdownMenu.Item onClick={openDialog}>
+                              Edit
+                            </DropdownMenu.Item>
+                            <DropdownMenu.Item>Delete</DropdownMenu.Item>
+                          </>
+                        )}
+                      />
                     </Table.Cell>
                   </Table.Row>
                 )
@@ -60,24 +71,25 @@ export default function Roles() {
             <Spinner loading={isLoading} />
           )}
         </Table.Body>
-
         {Boolean(data?.next || data?.prev) && (
-          <Flex justify='between' py='2'>
-            <Button
-              variant='soft'
-              onClick={() => setPage(data?.prev || 1)}
-              disabled={!data?.prev}
-            >
-              Previous
-            </Button>
-            <Button
-              variant='soft'
-              onClick={() => setPage(data?.next || 1)}
-              disabled={!data?.next}
-            >
-              Next
-            </Button>
-          </Flex>
+          <Table.Footer>
+            <Flex justify='end'>
+              <Button
+                variant='soft'
+                onClick={() => setPage(data?.prev || 1)}
+                disabled={!data?.prev}
+              >
+                Previous
+              </Button>
+              <Button
+                variant='soft'
+                onClick={() => setPage(data?.next || 1)}
+                disabled={!data?.next}
+              >
+                Next
+              </Button>
+            </Flex>
+          </Table.Footer>
         )}
       </Table>
     </>
