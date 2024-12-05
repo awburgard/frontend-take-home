@@ -6,12 +6,13 @@ import { useDebounce } from '../../hooks/useDebouce'
 import { UsersTable } from './Table'
 import { AddUser } from './AddUser'
 import { Box, Flex } from '@radix-ui/themes'
+import { TableSkeleton } from './TableSkeleton'
 
 export default function Users() {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const debouncedSearchTerm = useDebounce(search, 300)
-  const { data } = useUsersQuery({
+  const { data, isLoading } = useUsersQuery({
     page,
     search: debouncedSearchTerm,
   })
@@ -23,6 +24,8 @@ export default function Users() {
     []
   )
 
+  if (isLoading) return <TableSkeleton />
+
   return (
     <>
       <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
@@ -31,6 +34,7 @@ export default function Users() {
             placeholder='Search by name...'
             search={search}
             onChange={handleSearchChange}
+            disabled={isLoading}
           />
         </Box>
         <AddUser />

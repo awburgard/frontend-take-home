@@ -5,12 +5,13 @@ import { useRolesQuery } from './queries'
 
 import { RolesTable } from './Table'
 import { Box, Flex } from '@radix-ui/themes'
+import { TableSkeleton } from './TableSkelton'
 
 export default function Roles() {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const debouncedSearchTerm = useDebounce(search, 300)
-  const { data } = useRolesQuery({
+  const { data, isLoading } = useRolesQuery({
     page,
     search: debouncedSearchTerm,
   })
@@ -22,6 +23,8 @@ export default function Roles() {
     []
   )
 
+  if (isLoading) return <TableSkeleton />
+
   return (
     <>
       <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
@@ -30,6 +33,7 @@ export default function Roles() {
             placeholder='Search by name or description...'
             search={search}
             onChange={handleSearchChange}
+            disabled={isLoading}
           />
         </Box>
       </Flex>

@@ -16,7 +16,11 @@ interface ActionMenuProps {
   render: (openDialog: () => void) => React.ReactNode
 }
 
-const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
+export const ActionMenu: React.FC<ActionMenuProps> = ({
+  userId,
+  name,
+  render,
+}) => {
   const [isDialogOpen, setDialogOpen] = useState(false)
 
   const openDialog = () => setDialogOpen(true)
@@ -76,5 +80,3 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
     </>
   )
 }
-
-export default ActionMenu
