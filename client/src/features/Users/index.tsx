@@ -4,6 +4,8 @@ import { useUsersQuery } from './queries'
 import { Search } from '../Search'
 import { Avatar, Button, Flex, Spinner } from '@radix-ui/themes'
 import { useDebounce } from '../../hooks/useDebouce'
+import RoleCell from './RoleCell'
+import CreatedAtCell from './CreatedAtCell'
 
 export default function Users() {
   const [search, setSearch] = useState('')
@@ -55,8 +57,8 @@ export default function Users() {
                         {user.first} {user.last}
                       </Flex>
                     </Table.RowHeaderCell>
-                    <Table.Cell>{user.roleId}</Table.Cell>
-                    <Table.Cell>{user.createdAt}</Table.Cell>
+                    <RoleCell id={user.roleId} />
+                    <CreatedAtCell createdAt={user.createdAt} />
                     <Table.Cell>...</Table.Cell>
                   </Table.Row>
                 )

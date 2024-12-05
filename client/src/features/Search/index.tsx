@@ -1,15 +1,16 @@
 import { TextField } from '../../components/TextField'
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 
 interface SearchProps {
   placeholder: string
   search: string
-  icon?: React.ReactNode
+  icon?: boolean
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Search = ({
   placeholder,
-  icon,
+  icon = true,
   search,
   onChange,
 }: SearchProps) => {
@@ -21,7 +22,7 @@ export const Search = ({
     <TextField placeholder={placeholder} value={search} onChange={onChange}>
       {icon ? (
         <TextField.Slot>
-          <button>click me</button>
+          <MagnifyingGlassIcon />
         </TextField.Slot>
       ) : null}
     </TextField>
