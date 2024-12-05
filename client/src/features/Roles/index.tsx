@@ -5,7 +5,6 @@ import { useRolesQuery } from './queries'
 
 import { RolesTable } from './Table'
 import { Box, Flex } from '@radix-ui/themes'
-import { TableSkeleton } from './TableSkelton'
 
 export default function Roles() {
   const [search, setSearch] = useState('')
@@ -25,8 +24,6 @@ export default function Roles() {
 
   const showSkeleton = isLoading || isFetching || isRefetching
 
-  if (showSkeleton) return <TableSkeleton />
-
   return (
     <>
       <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
@@ -39,7 +36,7 @@ export default function Roles() {
           />
         </Box>
       </Flex>
-      <RolesTable data={data} setPage={setPage} />
+      <RolesTable data={data} setPage={setPage} isLoading={showSkeleton} />
     </>
   )
 }

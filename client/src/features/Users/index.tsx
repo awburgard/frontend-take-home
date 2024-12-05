@@ -6,7 +6,6 @@ import { useDebounce } from '../../hooks/useDebouce'
 import { UsersTable } from './Table'
 import { AddUser } from './AddUser'
 import { Box, Flex } from '@radix-ui/themes'
-import { TableSkeleton } from './TableSkeleton'
 
 export default function Users() {
   const [search, setSearch] = useState('')
@@ -26,8 +25,6 @@ export default function Users() {
 
   const showSkeleton = isLoading || isFetching || isRefetching
 
-  if (showSkeleton) return <TableSkeleton />
-
   return (
     <>
       <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
@@ -41,7 +38,7 @@ export default function Users() {
         </Box>
         <AddUser />
       </Flex>
-      <UsersTable data={data} setPage={setPage} />
+      <UsersTable data={data} setPage={setPage} isLoading={showSkeleton} />
     </>
   )
 }
