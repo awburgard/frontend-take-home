@@ -2,10 +2,10 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import {
   DropdownMenu,
   IconButton,
-  Dialog,
   Button,
   Flex,
   Strong,
+  AlertDialog,
 } from '@radix-ui/themes'
 import { useState } from 'react'
 import { useDeleteUserMutation } from './queries'
@@ -45,15 +45,15 @@ export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
         </DropdownMenu.Content>
       </DropdownMenu.Root>
 
-      <Dialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
-        <Dialog.Content>
-          <Dialog.Title>Delete user</Dialog.Title>
-          <Dialog.Description>
+      <AlertDialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
+        <AlertDialog.Content>
+          <AlertDialog.Title>Delete user</AlertDialog.Title>
+          <AlertDialog.Description>
             Are you sure? The user <Strong>{name}</Strong> will be permanently
             deleted.
-          </Dialog.Description>
+          </AlertDialog.Description>
           <Flex gap='3' mt='4' justify='end'>
-            <Dialog.Close>
+            <AlertDialog.Action>
               <Button
                 variant='outline'
                 color='gray'
@@ -62,8 +62,8 @@ export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
               >
                 Cancel
               </Button>
-            </Dialog.Close>
-            <Dialog.Close>
+            </AlertDialog.Action>
+            <AlertDialog.Action>
               <Button
                 size='2'
                 onClick={handleDelete}
@@ -72,10 +72,10 @@ export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
               >
                 Delete User
               </Button>
-            </Dialog.Close>
+            </AlertDialog.Action>
           </Flex>
-        </Dialog.Content>
-      </Dialog.Root>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
     </>
   )
 }

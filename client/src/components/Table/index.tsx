@@ -2,11 +2,7 @@ import { Table as RadixTable } from '@radix-ui/themes'
 import { TableFooter } from './Footer'
 
 export const Table = ({ children, ...props }: RadixTable.RootProps) => {
-  return (
-    <RadixTable.Root style={{ minHeight: '530px' }} {...props}>
-      {children}
-    </RadixTable.Root>
-  )
+  return <RadixTable.Root {...props}>{children}</RadixTable.Root>
 }
 
 Table.Header = RadixTable.Header

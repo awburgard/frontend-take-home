@@ -27,3 +27,4 @@ then to run the client:
 7. improve all functionality -- the backend is pretty fleshed out so we should be able to update, delete, etc more.
 8. DX: improve the aliasing so we aren't relying on relative paths.
 9. Add a no results state to the tables.
+10. Fix layout shift on load

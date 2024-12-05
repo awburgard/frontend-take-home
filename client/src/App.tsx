@@ -15,7 +15,6 @@ function App() {
           <Tabs.Content value='users'>
             <Users />
           </Tabs.Content>
-
           <Tabs.Content value='roles'>
             <Roles />
           </Tabs.Content>
