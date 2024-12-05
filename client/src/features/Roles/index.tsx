@@ -1,10 +1,11 @@
 import { useCallback, useState } from 'react'
 import { Table } from '../../components/Table'
 import { Search } from '../Search'
-import { Button, Flex, Spinner } from '@radix-ui/themes'
+import { Button, DropdownMenu, Flex, Spinner } from '@radix-ui/themes'
 import { useDebounce } from '../../hooks/useDebouce'
 import { useRolesQuery } from './queries'
 import { formatDate } from '../../utils/formatDate'
+import ActionMenu from './ActionMenu'
 
 export default function Roles() {
   const [search, setSearch] = useState('')
@@ -50,7 +51,17 @@ export default function Roles() {
                     <Table.Cell>{role.isDefault ? 'Yes' : 'No'}</Table.Cell>
                     <Table.Cell>{formatDate(role.createdAt)}</Table.Cell>
                     <Table.Cell>
-                      {/* <ActionMenu roleId={role.id} name={role.name} /> */}
+                      <ActionMenu
+                        role={role}
+                        render={(openDialog) => (
+                          <>
+                            <DropdownMenu.Item onClick={openDialog}>
+                              Edit
+                            </DropdownMenu.Item>
+                            <DropdownMenu.Item>Delete</DropdownMenu.Item>
+                          </>
+                        )}
+                      />
                     </Table.Cell>
                   </Table.Row>
                 )
@@ -62,7 +73,7 @@ export default function Roles() {
         </Table.Body>
 
         {Boolean(data?.next || data?.prev) && (
-          <Flex justify='between' py='2'>
+          <Flex justify='end'>
             <Button
               variant='soft'
               onClick={() => setPage(data?.prev || 1)}

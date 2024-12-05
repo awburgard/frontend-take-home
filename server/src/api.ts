@@ -23,7 +23,11 @@ function sortBy<T extends User | Role>(a: T, b: T) {
   return b.createdAt.localeCompare(a.createdAt)
 }
 
-function fullTextSearch<T extends Record<string, any>>(data: T[], fields: string[], search: string) {
+function fullTextSearch<T extends Record<string, any>>(
+  data: T[],
+  fields: string[],
+  search: string
+) {
   search = search.toLowerCase()
   return data.filter((item) => {
     for (const field of fields) {
@@ -34,7 +38,11 @@ function fullTextSearch<T extends Record<string, any>>(data: T[], fields: string
   })
 }
 
-function getPagedData<T extends User | Role>(req: express.Request, data: T[], searchFields: string[]): PagedData<T> {
+function getPagedData<T extends User | Role>(
+  req: express.Request,
+  data: T[],
+  searchFields: string[]
+): PagedData<T> {
   const search = req.query.search as string
   if (search) {
     data = fullTextSearch(data, searchFields, search)
@@ -47,21 +55,31 @@ function getPagedData<T extends User | Role>(req: express.Request, data: T[], se
   const next = page < pages ? page + 1 : null
   const prev = page > 1 ? page - 1 : null
   return {
-    data: data.slice((page - 1) * serverConfig.pageSize, page * serverConfig.pageSize),
+    data: data.slice(
+      (page - 1) * serverConfig.pageSize,
+      page * serverConfig.pageSize
+    ),
     next,
     prev,
     pages,
   }
 }
 
-function getEntity<T extends Record<string, any>>(req: express.Request, data: T[]): T | undefined {
+function getEntity<T extends Record<string, any>>(
+  req: express.Request,
+  data: T[]
+): T | undefined {
   const id = req.params.id as string
   return data.find((item) => item.id === id)
 }
 
-function updateField<T extends Record<string, any>>(item: T, field: string, value: any) {
+function updateField<T extends Record<string, any>>(
+  item: T,
+  field: string,
+  value: any
+) {
   if (value && value !== item[field]) {
-    ; (item[field] as keyof T) = value
+    ;(item[field] as keyof T) = value
     return true
   }
 
@@ -88,7 +106,11 @@ function getServerSpeed() {
   }
 }
 
-function logWithNetworkEffects(req: express.Request, res: express.Response, next: () => void) {
+function logWithNetworkEffects(
+  req: express.Request,
+  res: express.Response,
+  next: () => void
+) {
   let latencyInMs = 0
   if (serverConfig.speed === 'slow') {
     latencyInMs = Math.floor(Math.random() * 1000) + 1000 // between 1000ms and 2000ms
@@ -101,7 +123,9 @@ function logWithNetworkEffects(req: express.Request, res: express.Response, next
   if (serverConfig.requestLogging) {
     const serverErrorMessage = serverError ? ' (Server Error)' : ''
     const latencyMessage = latencyInMs ? ` (+${latencyInMs}ms)` : ''
-    console.log(`${req.method} ${req.path}${latencyMessage}${serverErrorMessage}`)
+    console.log(
+      `${req.method} ${req.path}${latencyMessage}${serverErrorMessage}`
+    )
   }
 
   function afterDelay() {
@@ -188,7 +212,11 @@ api.patch('/users/:id', (req, res) => {
 api.post('/users', (req, res) => {
   const { first, last, roleId } = req.body
 
-  const missingFields = [...(!first ? ['first'] : []), ...(!last ? ['last'] : []), ...(!roleId ? ['roleId'] : [])]
+  const missingFields = [
+    ...(!first ? ['first'] : []),
+    ...(!last ? ['last'] : []),
+    ...(!roleId ? ['roleId'] : []),
+  ]
   if (missingFields.length) {
     const message = `Missing required field${missingFields.length > 1 ? 's' : ''}: ${missingFields.join(', ')}`
     res.status(400).json({ message })
@@ -255,6 +283,8 @@ api.patch('/roles/:id', (req, res) => {
     res.status(404).json({ message: 'Role not found' })
     return
   }
+
+  console.log(req.body)
 
   const { name, description, isDefault } = req.body
   const { id } = role
@@ -330,7 +360,9 @@ api.delete('/roles/:id', (req, res) => {
   }
 
   const defaultRole = getDefaultRole()
-  data.users.filter((user) => user.roleId === role.id).forEach((user) => (user.roleId = defaultRole.id))
+  data.users
+    .filter((user) => user.roleId === role.id)
+    .forEach((user) => (user.roleId = defaultRole.id))
 
   data.roles = data.roles.filter((item) => item.id !== role.id)
 
@@ -341,7 +373,9 @@ api.delete('/roles/:id', (req, res) => {
 // Start Listening
 // ---------------
 
-export function startServer(config: typeof serverConfig): Promise<{ stop: () => void; reset: () => void }> {
+export function startServer(
+  config: typeof serverConfig
+): Promise<{ stop: () => void; reset: () => void }> {
   serverConfig.port = config.port
   serverConfig.speed = config.speed
   serverConfig.pageSize = config.pageSize

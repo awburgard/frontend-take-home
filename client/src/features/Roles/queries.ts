@@ -1,4 +1,9 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query'
+import {
+  useQuery,
+  keepPreviousData,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { PagedData, Role } from './../../../../server/src/models'
 
 interface RoleFilters {
@@ -46,5 +51,23 @@ export const useRoleQuery = (id: string) => {
     queryKey: roleKeys.detail(id),
     queryFn: () => fetchRole(id),
     enabled: !!id,
+  })
+}
+
+async function updateRole(role: Role): Promise<Role> {
+  const response = await fetch(`http://localhost:3002/roles/${role.id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(role),
+  })
+  return response.json()
+}
+
+export const useUpdateRoleMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (role: Role) => updateRole(role),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: roleKeys.all })
+    },
   })
 }

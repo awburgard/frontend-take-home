@@ -1,0 +1,83 @@
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
+import {
+  DropdownMenu,
+  IconButton,
+  Dialog,
+  Button,
+  Flex,
+  Strong,
+  TextField,
+} from '@radix-ui/themes'
+import { useState } from 'react'
+import { useUpdateRoleMutation } from './queries'
+import { Role } from '../../../../server/src/models'
+
+interface ActionMenuProps {
+  role: Role
+  render: (openDialog: () => void) => React.ReactNode
+}
+
+const ActionMenu: React.FC<ActionMenuProps> = ({ role, render }) => {
+  const [isDialogOpen, setDialogOpen] = useState(false)
+  const [roleName, setRoleName] = useState(role.name)
+  const openDialog = () => setDialogOpen(true)
+  const closeDialog = () => setDialogOpen(false)
+
+  const { mutate: updateRole } = useUpdateRoleMutation()
+
+  return (
+    <>
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <IconButton
+            variant='ghost'
+            color='gray'
+            radius='full'
+            aria-label='Actions'
+          >
+            <DotsHorizontalIcon width='16px' height='16px' />
+          </IconButton>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content sideOffset={5}>
+          {render(openDialog)}
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+
+      <Dialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog.Content>
+          <Dialog.Title>Update role</Dialog.Title>
+          <Dialog.Description>
+            Are you sure? The role <Strong>{role.name}</Strong> will be updated.
+          </Dialog.Description>
+          <TextField.Root
+            value={roleName}
+            onChange={(e) => setRoleName(e.target.value)}
+          />
+          <Flex gap='3' mt='4' justify='end'>
+            <Dialog.Close>
+              <Button
+                variant='outline'
+                color='gray'
+                onClick={closeDialog}
+                size='2'
+              >
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close>
+              <Button
+                size='2'
+                onClick={() => updateRole({ ...role, name: roleName })}
+                variant='soft'
+              >
+                Update Role
+              </Button>
+            </Dialog.Close>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
+  )
+}
+
+export default ActionMenu
