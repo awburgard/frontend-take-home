@@ -4,7 +4,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { PagedData, User } from './../../../../server/src/models'
+import { PagedClientUser } from '../../types'
 
 interface UserFilters {
   page: number
@@ -19,7 +19,7 @@ const userKeys = {
   detail: (id: number) => [...userKeys.details(), id] as const,
 }
 
-async function fetchUsers(filters: UserFilters): Promise<PagedData<User>> {
+async function fetchUsers(filters: UserFilters): Promise<PagedClientUser> {
   const query = new URLSearchParams({
     page: filters.page.toString(),
     ...(filters.search ? { search: filters.search } : {}),
