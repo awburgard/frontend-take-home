@@ -12,6 +12,14 @@ export const Pagination = <T,>({ data, setPage }: PaginationProps<T>) => {
 
   const showPagination = Boolean(data.next || data.prev)
 
+  const handlePrevious = () => {
+    setPage(data?.prev || 1)
+  }
+
+  const handleNext = () => {
+    setPage(data?.next || 1)
+  }
+
   if (!showPagination) return null
 
   return (
@@ -19,18 +27,14 @@ export const Pagination = <T,>({ data, setPage }: PaginationProps<T>) => {
       <Box>
         <Button
           variant='soft'
-          onClick={() => setPage(data?.prev || 1)}
+          onClick={handlePrevious}
           disabled={!data?.prev}
           mr='2'
         >
           Previous
         </Button>
 
-        <Button
-          variant='outline'
-          onClick={() => setPage(data?.next || 1)}
-          disabled={!data?.next}
-        >
+        <Button variant='outline' onClick={handleNext} disabled={!data?.next}>
           Next
         </Button>
       </Box>

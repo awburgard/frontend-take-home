@@ -16,16 +16,22 @@ export const TableBody = ({ data }: TableBodyProps) => {
         {data?.data.map((role) => {
           return (
             <Table.Row key={role.id}>
-              <Table.RowHeaderCell>{role.name}</Table.RowHeaderCell>
-              <Table.Cell>{role.description}</Table.Cell>
-              <Table.Cell>{role.isDefault ? 'Yes' : 'No'}</Table.Cell>
-              <Table.Cell>{formatDate(role.createdAt)}</Table.Cell>
+              <Table.RowHeaderCell minWidth='300'>
+                {role.name}
+              </Table.RowHeaderCell>
+              <Table.Cell minWidth='300'>{role.description}</Table.Cell>
+              <Table.Cell minWidth='300'>
+                {role.isDefault ? 'Yes' : 'No'}
+              </Table.Cell>
+              <Table.Cell minWidth='300'>
+                {formatDate(role.createdAt)}
+              </Table.Cell>
               <Table.Cell>
                 <ActionMenu
                   role={role}
-                  render={(openDialog) => (
+                  render={(toggleDialog) => (
                     <>
-                      <DropdownMenu.Item onClick={openDialog}>
+                      <DropdownMenu.Item onClick={toggleDialog}>
                         Edit
                       </DropdownMenu.Item>
                       <DropdownMenu.Item>Delete</DropdownMenu.Item>

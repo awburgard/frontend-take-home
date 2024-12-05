@@ -13,16 +13,19 @@ import { useDeleteUserMutation } from './queries'
 interface ActionMenuProps {
   userId: string
   name: string
-  render: (openDialog: () => void) => React.ReactNode
+  render: (toggleDialog: () => void) => React.ReactNode
 }
 
 export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
   const [isDialogOpen, setDialogOpen] = useState(false)
 
-  const openDialog = () => setDialogOpen(true)
-  const closeDialog = () => setDialogOpen(false)
+  const toggleDialog = () => setDialogOpen((prev) => !prev)
 
   const { mutate: deleteUser } = useDeleteUserMutation()
+
+  const handleDelete = () => {
+    deleteUser(userId)
+  }
 
   return (
     <>
@@ -38,7 +41,7 @@ export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
           </IconButton>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={5}>
-          {render(openDialog)}
+          {render(toggleDialog)}
         </DropdownMenu.Content>
       </DropdownMenu.Root>
 
@@ -54,7 +57,7 @@ export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
               <Button
                 variant='outline'
                 color='gray'
-                onClick={closeDialog}
+                onClick={toggleDialog}
                 size='2'
               >
                 Cancel
@@ -63,7 +66,7 @@ export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
             <Dialog.Close>
               <Button
                 size='2'
-                onClick={() => deleteUser(userId)}
+                onClick={handleDelete}
                 color='red'
                 variant='soft'
               >

@@ -16,10 +16,6 @@ export const Search = ({
   onChange,
   disabled = false,
 }: SearchProps) => {
-  /**
-   * think through how to manage state for the search query for both users and roles
-   * for right now, we will just hardcode the state, pass in the state (DO NOT KEEP THIS), and go on our way
-   */
   return (
     <TextField
       placeholder={placeholder}

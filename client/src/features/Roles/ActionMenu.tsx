@@ -14,14 +14,14 @@ import { Role } from '../../../../server/src/models'
 
 interface ActionMenuProps {
   role: Role
-  render: (openDialog: () => void) => React.ReactNode
+  render: (toggleDialog: () => void) => React.ReactNode
 }
 
 export const ActionMenu = ({ role, render }: ActionMenuProps) => {
   const [isDialogOpen, setDialogOpen] = useState(false)
   const [roleName, setRoleName] = useState(role.name)
-  const openDialog = () => setDialogOpen(true)
-  const closeDialog = () => setDialogOpen(false)
+
+  const toggleDialog = () => setDialogOpen((prev) => !prev)
 
   const { mutate: updateRole } = useUpdateRoleMutation()
 
@@ -39,7 +39,7 @@ export const ActionMenu = ({ role, render }: ActionMenuProps) => {
           </IconButton>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={5}>
-          {render(openDialog)}
+          {render(toggleDialog)}
         </DropdownMenu.Content>
       </DropdownMenu.Root>
 
@@ -59,7 +59,7 @@ export const ActionMenu = ({ role, render }: ActionMenuProps) => {
               <Button
                 variant='outline'
                 color='gray'
-                onClick={closeDialog}
+                onClick={toggleDialog}
                 size='2'
               >
                 Cancel

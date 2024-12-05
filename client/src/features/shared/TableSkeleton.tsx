@@ -1,30 +1,27 @@
 import { Skeleton } from '@radix-ui/themes'
 import { Table } from '../../components/Table'
 
-export const TableSkeleton = () => {
+type TableSkeletonProps = {
+  Headers: () => JSX.Element
+}
+
+export const TableSkeleton = ({ Headers }: TableSkeletonProps) => {
   return (
     <Table variant='surface'>
-      <Table.Header>
-        <Table.Row>
-          <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Default</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
-        </Table.Row>
-      </Table.Header>
+      <Headers />
       <Table.Body>
-        {[...Array(5)].map((_, index) => (
+        {[...Array(10)].map((_, index) => (
           <Table.Row key={index}>
-            <Table.RowHeaderCell>
+            <Table.RowHeaderCell minWidth='300'>
               <Skeleton width='100%' height='20px' />
             </Table.RowHeaderCell>
-            <Table.Cell>
+            <Table.Cell minWidth='300'>
               <Skeleton width='100%' height='20px' />
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell minWidth='300'>
               <Skeleton width='100%' height='20px' />
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell minWidth='300'>
               <Skeleton width='100%' height='20px' />
             </Table.Cell>
           </Table.Row>

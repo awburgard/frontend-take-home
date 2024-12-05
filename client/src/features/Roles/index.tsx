@@ -17,6 +17,7 @@ export default function Roles() {
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPage(1)
       setSearch(e.target.value)
     },
     []

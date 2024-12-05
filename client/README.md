@@ -26,3 +26,4 @@ then to run the client:
 6. improve pagination loading states -- right now it's not obvious to the user that the pagination is loading.
 7. improve all functionality -- the backend is pretty fleshed out so we should be able to update, delete, etc more.
 8. DX: improve the aliasing so we aren't relying on relative paths.
+9. Add a no results state to the tables.

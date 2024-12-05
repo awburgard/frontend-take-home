@@ -3,7 +3,7 @@ import { PagedClientRole } from '../../types'
 import { Pagination } from '../shared/Pagination'
 import { TableBody } from './TableBody'
 import { TableHeader } from './TableHeader'
-import { TableSkeleton } from './TableSkelton'
+import { TableSkeleton } from '../shared/TableSkeleton'
 
 interface RolesTableProps {
   data: PagedClientRole | undefined
@@ -12,7 +12,7 @@ interface RolesTableProps {
 }
 
 export const RolesTable = ({ data, setPage, isLoading }: RolesTableProps) => {
-  if (isLoading) return <TableSkeleton />
+  if (isLoading) return <TableSkeleton Headers={TableHeader} />
   return (
     <Table variant='surface'>
       <TableHeader />

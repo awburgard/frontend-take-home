@@ -12,7 +12,7 @@ interface TableRowProps {
 export const TableRow = ({ user }: TableRowProps) => {
   return (
     <Table.Row key={user.id}>
-      <Table.RowHeaderCell>
+      <Table.RowHeaderCell minWidth='300'>
         <Flex align='center' gap='2'>
           <Avatar
             src={user.photo}
@@ -25,14 +25,16 @@ export const TableRow = ({ user }: TableRowProps) => {
       </Table.RowHeaderCell>
       <RoleCell id={user.roleId} />
       <CreatedAtCell createdAt={user.createdAt} />
-      <Table.Cell>
+      <Table.Cell minWidth='300'>
         <ActionMenu
           userId={user.id}
           name={`${user.first} ${user.last}`}
-          render={(openDialog) => (
+          render={(toggleDialog) => (
             <>
               <DropdownMenu.Item>Edit</DropdownMenu.Item>
-              <DropdownMenu.Item onClick={openDialog}>Delete</DropdownMenu.Item>
+              <DropdownMenu.Item onClick={toggleDialog}>
+                Delete
+              </DropdownMenu.Item>
             </>
           )}
         />
