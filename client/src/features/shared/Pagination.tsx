@@ -26,15 +26,23 @@ export const Pagination = <T,>({ data, setPage }: PaginationProps<T>) => {
     <Table.Footer>
       <Box>
         <Button
-          variant='soft'
           onClick={handlePrevious}
           disabled={!data?.prev}
           mr='2'
+          highContrast
+          variant='outline'
+          color='gray'
         >
           Previous
         </Button>
 
-        <Button variant='outline' onClick={handleNext} disabled={!data?.next}>
+        <Button
+          variant='outline'
+          onClick={handleNext}
+          disabled={!data?.next}
+          color='gray'
+          highContrast
+        >
           Next
         </Button>
       </Box>
