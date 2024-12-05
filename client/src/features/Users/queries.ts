@@ -1,4 +1,9 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query'
+import {
+  useQuery,
+  keepPreviousData,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { PagedData, User } from './../../../../server/src/models'
 
 interface UserFilters {
@@ -33,5 +38,22 @@ export const useUsersQuery = (filters: UserFilters) => {
     queryKey: userKeys.list(filters),
     queryFn: () => fetchUsers(filters),
     placeholderData: keepPreviousData, // Ensures data doesn't flicker between pages
+  })
+}
+
+async function deleteUser(id: string): Promise<void> {
+  const response = await fetch(`http://localhost:3002/users/${id}`, {
+    method: 'DELETE',
+  })
+  return response.json()
+}
+
+export const useDeleteUserMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id: string) => deleteUser(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userKeys.all })
+    },
   })
 }
