@@ -4,6 +4,7 @@ import { useDebounce } from '../../hooks/useDebouce'
 import { useRolesQuery } from './queries'
 
 import { RolesTable } from './Table'
+import { Box, Flex } from '@radix-ui/themes'
 
 export default function Roles() {
   const [search, setSearch] = useState('')
@@ -23,11 +24,15 @@ export default function Roles() {
 
   return (
     <>
-      <Search
-        placeholder='Search by name or description...'
-        search={search}
-        onChange={handleSearchChange}
-      />
+      <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
+        <Box width='100%'>
+          <Search
+            placeholder='Search by name or description...'
+            search={search}
+            onChange={handleSearchChange}
+          />
+        </Box>
+      </Flex>
       <RolesTable data={data} setPage={setPage} />
     </>
   )

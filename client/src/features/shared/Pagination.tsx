@@ -24,7 +24,7 @@ export const Pagination = <T,>({ data, setPage }: PaginationProps<T>) => {
         Previous
       </Button>
       <Button
-        variant='soft'
+        variant='outline'
         onClick={() => setPage(data?.next || 1)}
         disabled={!data?.next}
       >

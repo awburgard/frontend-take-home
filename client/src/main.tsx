@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-// import './index.css' // update
 import App from './App.tsx'
 import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
@@ -10,7 +9,12 @@ const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Theme>
+    <Theme
+      accentColor='violet'
+      grayColor='slate'
+      panelBackground='solid'
+      scaling='100%'
+    >
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>
