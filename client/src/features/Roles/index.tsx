@@ -25,14 +25,14 @@ export default function Roles() {
   return (
     <>
       <Search
-        placeholder='Search by role...'
+        placeholder='Search by name...'
         search={search}
         onChange={handleSearchChange}
       />
       <Table variant='surface'>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Default</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Created</Table.ColumnHeaderCell>
