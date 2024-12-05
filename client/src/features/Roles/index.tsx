@@ -26,7 +26,7 @@ export default function Roles() {
   return (
     <>
       <Search
-        placeholder='Search by name...'
+        placeholder='Search by name or description...'
         search={search}
         onChange={handleSearchChange}
       />
@@ -71,24 +71,25 @@ export default function Roles() {
             <Spinner loading={isLoading} />
           )}
         </Table.Body>
-
         {Boolean(data?.next || data?.prev) && (
-          <Flex justify='end'>
-            <Button
-              variant='soft'
-              onClick={() => setPage(data?.prev || 1)}
-              disabled={!data?.prev}
-            >
-              Previous
-            </Button>
-            <Button
-              variant='soft'
-              onClick={() => setPage(data?.next || 1)}
-              disabled={!data?.next}
-            >
-              Next
-            </Button>
-          </Flex>
+          <Table.Footer>
+            <Flex justify='end'>
+              <Button
+                variant='soft'
+                onClick={() => setPage(data?.prev || 1)}
+                disabled={!data?.prev}
+              >
+                Previous
+              </Button>
+              <Button
+                variant='soft'
+                onClick={() => setPage(data?.next || 1)}
+                disabled={!data?.next}
+              >
+                Next
+              </Button>
+            </Flex>
+          </Table.Footer>
         )}
       </Table>
     </>

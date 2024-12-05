@@ -81,23 +81,24 @@ export default function Users() {
             <Spinner loading={isLoading} />
           )}
         </Table.Body>
-
-        <Flex justify='between' py='2'>
-          <Button
-            variant='soft'
-            onClick={() => setPage(data?.prev || 1)}
-            disabled={!data?.prev}
-          >
-            Previous
-          </Button>
-          <Button
-            variant='soft'
-            onClick={() => setPage(data?.next || 1)}
-            disabled={!data?.next}
-          >
-            Next
-          </Button>
-        </Flex>
+        {Boolean(data?.next || data?.prev) && (
+          <Table.Footer>
+            <Button
+              variant='soft'
+              onClick={() => setPage(data?.prev || 1)}
+              disabled={!data?.prev}
+            >
+              Previous
+            </Button>
+            <Button
+              variant='soft'
+              onClick={() => setPage(data?.next || 1)}
+              disabled={!data?.next}
+            >
+              Next
+            </Button>
+          </Table.Footer>
+        )}
       </Table>
     </>
   )

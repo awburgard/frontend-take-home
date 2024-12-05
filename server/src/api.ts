@@ -284,8 +284,6 @@ api.patch('/roles/:id', (req, res) => {
     return
   }
 
-  console.log(req.body)
-
   const { name, description, isDefault } = req.body
   const { id } = role
   if (data.roles.find((role) => role.name === name && role.id !== id)) {

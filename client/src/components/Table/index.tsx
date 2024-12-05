@@ -1,8 +1,7 @@
 import { Table as RadixTable } from '@radix-ui/themes'
+import { TableFooter } from './Footer'
 
-interface TableProps extends RadixTable.RootProps {}
-
-export const Table = ({ children, ...props }: TableProps) => {
+export const Table = ({ children, ...props }: RadixTable.RootProps) => {
   return <RadixTable.Root {...props}>{children}</RadixTable.Root>
 }
 
@@ -12,3 +11,4 @@ Table.Row = RadixTable.Row
 Table.Cell = RadixTable.Cell
 Table.RowHeaderCell = RadixTable.RowHeaderCell
 Table.ColumnHeaderCell = RadixTable.ColumnHeaderCell
+Table.Footer = TableFooter

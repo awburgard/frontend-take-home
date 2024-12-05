@@ -57,6 +57,7 @@ export const useRoleQuery = (id: string) => {
 async function updateRole(role: Role): Promise<Role> {
   const response = await fetch(`http://localhost:3002/roles/${role.id}`, {
     method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(role),
   })
   return response.json()
