@@ -22,7 +22,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
   const openDialog = () => setDialogOpen(true)
   const closeDialog = () => setDialogOpen(false)
 
-  const { mutate: deleteUser, isPending } = useDeleteUserMutation()
+  const { mutate: deleteUser } = useDeleteUserMutation()
 
   return (
     <>
