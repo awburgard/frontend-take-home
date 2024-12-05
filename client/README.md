@@ -5,3 +5,4 @@
     - enables better cacheing
     - enables better error, loading, state handling 
 3. installed icons from radix to match design
+4. Updated search text to be more descriptive since the backend search is only by first or last name

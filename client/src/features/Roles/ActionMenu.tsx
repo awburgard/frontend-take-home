@@ -17,7 +17,7 @@ interface ActionMenuProps {
   render: (openDialog: () => void) => React.ReactNode
 }
 
-const ActionMenu: React.FC<ActionMenuProps> = ({ role, render }) => {
+export const ActionMenu = ({ role, render }: ActionMenuProps) => {
   const [isDialogOpen, setDialogOpen] = useState(false)
   const [roleName, setRoleName] = useState(role.name)
   const openDialog = () => setDialogOpen(true)
@@ -46,8 +46,9 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ role, render }) => {
       <Dialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
         <Dialog.Content>
           <Dialog.Title>Update role</Dialog.Title>
-          <Dialog.Description>
-            Are you sure? The role <Strong>{role.name}</Strong> will be updated.
+          <Dialog.Description size='2' mb='4'>
+            Are you sure? The role name for <Strong>{role.name}</Strong> will be
+            updated.
           </Dialog.Description>
           <TextField.Root
             value={roleName}
@@ -79,5 +80,3 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ role, render }) => {
     </>
   )
 }
-
-export default ActionMenu

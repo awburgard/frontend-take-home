@@ -11,7 +11,7 @@ export default function Roles() {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const debouncedSearchTerm = useDebounce(search, 300)
-  const { data, isLoading } = useRolesQuery({
+  const { data, isLoading, isFetching, isRefetching } = useRolesQuery({
     page,
     search: debouncedSearchTerm,
   })
@@ -23,7 +23,9 @@ export default function Roles() {
     []
   )
 
-  if (isLoading) return <TableSkeleton />
+  const showSkeleton = isLoading || isFetching || isRefetching
+
+  if (showSkeleton) return <TableSkeleton />
 
   return (
     <>

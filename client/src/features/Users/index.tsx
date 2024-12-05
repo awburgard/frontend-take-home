@@ -12,7 +12,7 @@ export default function Users() {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const debouncedSearchTerm = useDebounce(search, 300)
-  const { data, isLoading } = useUsersQuery({
+  const { data, isLoading, isFetching, isRefetching } = useUsersQuery({
     page,
     search: debouncedSearchTerm,
   })
@@ -24,14 +24,16 @@ export default function Users() {
     []
   )
 
-  if (isLoading) return <TableSkeleton />
+  const showSkeleton = isLoading || isFetching || isRefetching
+
+  if (showSkeleton) return <TableSkeleton />
 
   return (
     <>
       <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
         <Box width='100%'>
           <Search
-            placeholder='Search by name...'
+            placeholder='Search by first or last name...'
             search={search}
             onChange={handleSearchChange}
             disabled={isLoading}
