@@ -2,16 +2,18 @@ import { useCallback, useState } from 'react'
 import { Table } from '../../components/Table'
 import { useUsersQuery } from './queries'
 import { Search } from '../Search'
-import { Avatar, Button, Flex, Spinner } from '@radix-ui/themes'
+import { Avatar, Button, DropdownMenu, Flex, Spinner } from '@radix-ui/themes'
 import { useDebounce } from '../../hooks/useDebouce'
 import RoleCell from './RoleCell'
 import CreatedAtCell from './CreatedAtCell'
+import ActionMenu from './ActionMenu'
+import { useDeleteUserMutation } from './queries'
 
 export default function Users() {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const debouncedSearchTerm = useDebounce(search, 300)
-
+  const { mutate: deleteUser } = useDeleteUserMutation()
   const { data, isError, isPending, isLoading } = useUsersQuery({
     page,
     search: debouncedSearchTerm,
@@ -59,7 +61,18 @@ export default function Users() {
                     </Table.RowHeaderCell>
                     <RoleCell id={user.roleId} />
                     <CreatedAtCell createdAt={user.createdAt} />
-                    <Table.Cell>...</Table.Cell>
+                    <ActionMenu
+                      userId={user.id}
+                      name={`${user.first} ${user.last}`}
+                      render={(openDialog) => (
+                        <>
+                          <DropdownMenu.Item>Edit</DropdownMenu.Item>
+                          <DropdownMenu.Item onClick={openDialog}>
+                            Delete
+                          </DropdownMenu.Item>
+                        </>
+                      )}
+                    />
                   </Table.Row>
                 )
               })}
