@@ -4,3 +4,4 @@
 2. installed tanstack query to handle fetching, cacheing
     - enables better cacheing
     - enables better error, loading, state handling 
+3. installed icons from radix to match design
