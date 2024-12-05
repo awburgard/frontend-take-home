@@ -10,6 +10,10 @@ interface PaginationProps<T> {
 export const Pagination = <T,>({ data, setPage }: PaginationProps<T>) => {
   if (!data) return null
 
+  const showPagination = Boolean(data.next || data.prev)
+
+  if (!showPagination) return null
+
   return (
     <Table.Footer>
       <Button
