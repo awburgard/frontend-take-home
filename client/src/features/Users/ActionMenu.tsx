@@ -2,10 +2,10 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import {
   DropdownMenu,
   IconButton,
-  Dialog,
   Button,
   Flex,
   Strong,
+  AlertDialog,
 } from '@radix-ui/themes'
 import { useState } from 'react'
 import { useDeleteUserMutation } from './queries'
@@ -13,16 +13,19 @@ import { useDeleteUserMutation } from './queries'
 interface ActionMenuProps {
   userId: string
   name: string
-  render: (openDialog: () => void) => React.ReactNode
+  render: (toggleDialog: () => void) => React.ReactNode
 }
 
-const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
+export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
   const [isDialogOpen, setDialogOpen] = useState(false)
 
-  const openDialog = () => setDialogOpen(true)
-  const closeDialog = () => setDialogOpen(false)
+  const toggleDialog = () => setDialogOpen((prev) => !prev)
 
   const { mutate: deleteUser } = useDeleteUserMutation()
+
+  const handleDelete = () => {
+    deleteUser(userId)
+  }
 
   return (
     <>
@@ -38,43 +41,41 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ userId, name, render }) => {
           </IconButton>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={5}>
-          {render(openDialog)}
+          {render(toggleDialog)}
         </DropdownMenu.Content>
       </DropdownMenu.Root>
 
-      <Dialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
-        <Dialog.Content>
-          <Dialog.Title>Delete user</Dialog.Title>
-          <Dialog.Description>
+      <AlertDialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
+        <AlertDialog.Content>
+          <AlertDialog.Title>Delete user</AlertDialog.Title>
+          <AlertDialog.Description>
             Are you sure? The user <Strong>{name}</Strong> will be permanently
             deleted.
-          </Dialog.Description>
+          </AlertDialog.Description>
           <Flex gap='3' mt='4' justify='end'>
-            <Dialog.Close>
+            <AlertDialog.Action>
               <Button
                 variant='outline'
                 color='gray'
-                onClick={closeDialog}
+                onClick={toggleDialog}
                 size='2'
               >
                 Cancel
               </Button>
-            </Dialog.Close>
-            <Dialog.Close>
+            </AlertDialog.Action>
+            <AlertDialog.Action>
               <Button
                 size='2'
-                onClick={() => deleteUser(userId)}
+                onClick={handleDelete}
                 color='red'
                 variant='soft'
               >
                 Delete User
               </Button>
-            </Dialog.Close>
+            </AlertDialog.Action>
           </Flex>
-        </Dialog.Content>
-      </Dialog.Root>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
     </>
   )
 }
-
-export default ActionMenu

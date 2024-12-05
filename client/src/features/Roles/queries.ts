@@ -4,7 +4,8 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { PagedData, Role } from './../../../../server/src/models'
+import { ClientRole, PagedClientRole } from '../../types'
+import { toast } from 'react-toastify'
 
 interface RoleFilters {
   page: number
@@ -19,7 +20,7 @@ const roleKeys = {
   detail: (id: string) => [...roleKeys.details(), id] as const,
 }
 
-async function fetchRoles(filters: RoleFilters): Promise<PagedData<Role>> {
+async function fetchRoles(filters: RoleFilters): Promise<PagedClientRole> {
   const query = new URLSearchParams({
     page: filters.page.toString(),
     ...(filters.search ? { search: filters.search } : {}),
@@ -27,14 +28,19 @@ async function fetchRoles(filters: RoleFilters): Promise<PagedData<Role>> {
   const response = await fetch(`http://localhost:3002/roles?${query}`)
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch roles: ${response.statusText}`)
+    toast.error('Failed to fetch roles')
   }
 
   return response.json()
 }
 
-async function fetchRole(id: string): Promise<Role> {
+async function fetchRole(id: string): Promise<ClientRole> {
   const response = await fetch(`http://localhost:3002/roles/${id}`)
+
+  if (!response.ok) {
+    toast.error('Failed to fetch role')
+  }
+
   return response.json()
 }
 
@@ -54,7 +60,7 @@ export const useRoleQuery = (id: string) => {
   })
 }
 
-async function updateRole(role: Role): Promise<Role> {
+async function updateRole(role: ClientRole): Promise<ClientRole> {
   const response = await fetch(`http://localhost:3002/roles/${role.id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
@@ -66,9 +72,18 @@ async function updateRole(role: Role): Promise<Role> {
 export const useUpdateRoleMutation = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (role: Role) => updateRole(role),
-    onSuccess: () => {
+    mutationFn: (role: ClientRole) => updateRole(role),
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: roleKeys.all })
+      queryClient.setQueryData(roleKeys.list({ page: 1 }), data)
+      toast.success('Role updated', {
+        position: 'bottom-right',
+      })
+    },
+    onError: () => {
+      toast.error('Failed to update role', {
+        position: 'bottom-right',
+      })
     },
   })
 }
