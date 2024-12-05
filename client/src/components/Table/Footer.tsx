@@ -1,20 +1,15 @@
-import { Flex } from '@radix-ui/themes'
+import { Table } from '.'
 
 interface TableFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
 }
 
 export const TableFooter = ({ children }: TableFooterProps) => (
-  <Flex
-    justify='end'
-    align='center'
-    gap='2'
-    minHeight='44px'
-    px='3'
-    py='2'
-    width='100%'
-    style={{ borderTop: '1px solid var(--gray-a5)' }}
-  >
-    {children}
-  </Flex>
+  <tfoot style={{ borderTop: '1px solid var(--gray-a5)', padding: '10px 0' }}>
+    <Table.Row>
+      <Table.Cell colSpan={999} align='right'>
+        {children}
+      </Table.Cell>
+    </Table.Row>
+  </tfoot>
 )
