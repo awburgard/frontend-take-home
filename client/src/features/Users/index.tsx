@@ -21,7 +21,7 @@ export default function Users() {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value)
     },
-    [search]
+    []
   )
 
   return (

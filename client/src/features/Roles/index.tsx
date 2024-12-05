@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { Table } from '../../components/Table'
 import { Search } from '../Search'
-import { Avatar, Button, DropdownMenu, Flex, Spinner } from '@radix-ui/themes'
+import { Button, Flex, Spinner } from '@radix-ui/themes'
 import { useDebounce } from '../../hooks/useDebouce'
 import { useRolesQuery } from './queries'
 import { formatDate } from '../../utils/formatDate'
@@ -19,7 +19,7 @@ export default function Roles() {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value)
     },
-    [search]
+    []
   )
 
   return (
