@@ -27,7 +27,8 @@ async function fetchUsers(filters: UserFilters): Promise<PagedClientUser> {
   const response = await fetch(`http://localhost:3002/users?${query}`)
 
   if (!response.ok) {
-    toast.error('Failed to fetch users')
+    const errorData = await response.json()
+    throw new Error(errorData.message || 'Failed to fetch users')
   }
 
   return response.json()
@@ -45,6 +46,12 @@ async function deleteUser(id: string): Promise<PagedClientUser> {
   const response = await fetch(`http://localhost:3002/users/${id}`, {
     method: 'DELETE',
   })
+
+  if (!response.ok) {
+    const errorData = await response.json()
+    throw new Error(errorData.message || 'Failed to delete user')
+  }
+
   return response.json()
 }
 

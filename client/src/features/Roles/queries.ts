@@ -28,7 +28,9 @@ async function fetchRoles(filters: RoleFilters): Promise<PagedClientRole> {
   const response = await fetch(`http://localhost:3002/roles?${query}`)
 
   if (!response.ok) {
-    toast.error('Failed to fetch roles')
+    const errorData = await response.json()
+    toast.error(errorData.message || 'Failed to fetch roles')
+    throw new Error(errorData.message || 'Failed to fetch roles')
   }
 
   return response.json()
@@ -38,7 +40,9 @@ async function fetchRole(id: string): Promise<ClientRole> {
   const response = await fetch(`http://localhost:3002/roles/${id}`)
 
   if (!response.ok) {
-    toast.error('Failed to fetch role')
+    const errorData = await response.json()
+    toast.error(errorData.message || 'Failed to fetch role')
+    throw new Error(errorData.message || 'Failed to fetch role')
   }
 
   return response.json()
@@ -66,6 +70,12 @@ async function updateRole(role: ClientRole): Promise<ClientRole> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(role),
   })
+
+  if (!response.ok) {
+    const errorData = await response.json()
+    throw new Error(errorData.message || 'Failed to update role')
+  }
+
   return response.json()
 }
 
@@ -74,14 +84,14 @@ export const useUpdateRoleMutation = () => {
   return useMutation({
     mutationFn: (role: ClientRole) => updateRole(role),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: roleKeys.all })
-      queryClient.setQueryData(roleKeys.list({ page: 1 }), data)
+      queryClient.invalidateQueries({ queryKey: roleKeys.detail(data.id) })
+      queryClient.setQueryData(roleKeys.detail(data.id), data)
       toast.success('Role updated', {
         position: 'bottom-right',
       })
     },
-    onError: () => {
-      toast.error('Failed to update role', {
+    onError: (error) => {
+      toast.error(error.message, {
         position: 'bottom-right',
       })
     },
