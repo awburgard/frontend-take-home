@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify'
 
 import '@radix-ui/themes/styles.css'
 import 'react-toastify/dist/ReactToastify.css'
+import { FilterProvider } from './context/FilterContext/FilterContext.tsx'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,8 +26,10 @@ createRoot(document.getElementById('root')!).render(
       scaling='100%'
     >
       <QueryClientProvider client={queryClient}>
-        <App />
-        <ToastContainer />
+        <FilterProvider>
+          <App />
+          <ToastContainer />
+        </FilterProvider>
       </QueryClientProvider>
     </Theme>
   </StrictMode>

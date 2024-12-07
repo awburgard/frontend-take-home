@@ -1,9 +1,9 @@
 import { Table } from '../../components/Table'
 import { PagedClientUser } from '../../types'
 import { Pagination } from '../shared/Pagination'
-import { TableSkeleton } from '../shared/TableSkeleton'
 import { TableBody } from './TableBody'
 import { TableHeader } from './TableHeader'
+import { UsersTableSkeleton } from './UsersTableSkeleton'
 
 interface UsersTableProps {
   data: PagedClientUser | undefined
@@ -12,7 +12,7 @@ interface UsersTableProps {
 }
 
 export const UsersTable = ({ data, setPage, isLoading }: UsersTableProps) => {
-  if (isLoading) return <TableSkeleton Headers={TableHeader} />
+  if (isLoading) return <UsersTableSkeleton />
   return (
     <Table variant='surface'>
       <TableHeader />

@@ -11,7 +11,7 @@ interface UserFilters {
   search?: string
 }
 
-const userKeys = {
+export const userKeys = {
   all: ['users'] as const,
   lists: () => [...userKeys.all, 'list'] as const,
   list: (filters: UserFilters) => [...userKeys.lists(), filters] as const,
@@ -19,7 +19,9 @@ const userKeys = {
   detail: (id: number) => [...userKeys.details(), id] as const,
 }
 
-async function fetchUsers(filters: UserFilters): Promise<PagedClientUser> {
+export async function fetchUsers(
+  filters: UserFilters
+): Promise<PagedClientUser> {
   const query = new URLSearchParams({
     page: filters.page.toString(),
     ...(filters.search ? { search: filters.search } : {}),

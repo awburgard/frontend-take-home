@@ -1,26 +1,25 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { Search } from '../Search'
 import { useDebounce } from '../../hooks/useDebouce'
 import { useRolesQuery } from './queries'
 
 import { RolesTable } from './Table'
 import { Box, Flex } from '@radix-ui/themes'
+import { useFilters } from '../../context/FilterContext/useFilters'
 
 export default function Roles() {
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
-  const debouncedSearchTerm = useDebounce(search, 300)
+  const { filters, setFilters } = useFilters('roles')
+  const debouncedSearchTerm = useDebounce(filters.search, 300)
   const { data, isLoading, isFetching, isRefetching } = useRolesQuery({
-    page,
+    page: filters.page,
     search: debouncedSearchTerm,
   })
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPage(1)
-      setSearch(e.target.value)
+      setFilters({ page: 1, search: e.target.value })
     },
-    []
+    [setFilters]
   )
 
   const showSkeleton = isLoading || isFetching || isRefetching
@@ -31,13 +30,17 @@ export default function Roles() {
         <Box width='100%'>
           <Search
             placeholder='Search by name or description...'
-            search={search}
+            search={filters.search}
             onChange={handleSearchChange}
             disabled={isLoading}
           />
         </Box>
       </Flex>
-      <RolesTable data={data} setPage={setPage} isLoading={showSkeleton} />
+      <RolesTable
+        data={data}
+        setPage={(page) => setFilters({ ...filters, page })}
+        isLoading={showSkeleton}
+      />
     </>
   )
 }

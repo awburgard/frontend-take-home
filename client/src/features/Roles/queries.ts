@@ -5,6 +5,8 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import { ClientRole, PagedClientRole } from '../../types'
+import { useFilters } from '../../context/FilterContext/useFilters'
+
 import { toast } from 'react-toastify'
 
 interface RoleFilters {
@@ -12,7 +14,7 @@ interface RoleFilters {
   search?: string
 }
 
-const roleKeys = {
+export const roleKeys = {
   all: ['roles'] as const,
   lists: () => [...roleKeys.all, 'list'] as const,
   list: (filters: RoleFilters) => [...roleKeys.lists(), filters] as const,
@@ -20,7 +22,9 @@ const roleKeys = {
   detail: (id: string) => [...roleKeys.details(), id] as const,
 }
 
-async function fetchRoles(filters: RoleFilters): Promise<PagedClientRole> {
+export async function fetchRoles(
+  filters: RoleFilters
+): Promise<PagedClientRole> {
   const query = new URLSearchParams({
     page: filters.page.toString(),
     ...(filters.search ? { search: filters.search } : {}),
@@ -81,11 +85,12 @@ async function updateRole(role: ClientRole): Promise<ClientRole> {
 
 export const useUpdateRoleMutation = () => {
   const queryClient = useQueryClient()
+  const { filters } = useFilters('roles')
   return useMutation({
     mutationFn: (role: ClientRole) => updateRole(role),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: roleKeys.detail(data.id) })
-      queryClient.setQueryData(roleKeys.detail(data.id), data)
+      queryClient.invalidateQueries({ queryKey: roleKeys.all })
+      queryClient.setQueryData(roleKeys.list(filters), data)
       toast.success('Role updated', {
         position: 'bottom-right',
       })
