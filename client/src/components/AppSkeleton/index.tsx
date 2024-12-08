@@ -1,6 +1,6 @@
 import { Box, Container, Skeleton } from '@radix-ui/themes'
 
-import { Tabs } from '../Tab'
+import { Tabs } from '@/components/Tab'
 
 export const AppSkeleton = () => (
   <Container>
@@ -24,3 +24,7 @@ export const AppSkeleton = () => (
     </Tabs>
   </Container>
 )
+
+AppSkeleton.displayName = 'AppSkeleton'
+
+export default AppSkeleton

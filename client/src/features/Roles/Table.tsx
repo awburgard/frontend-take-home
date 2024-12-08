@@ -1,9 +1,9 @@
-import { Table } from '../../components/Table'
-import { PagedClientRole } from '../../types'
-import { Pagination } from '../shared/Pagination'
-import { TableBody } from './TableBody'
-import { TableHeader } from './TableHeader'
-import { RolesTableSkeleton } from './RolesTableSkeleton'
+import { Table } from '@/components/Table'
+import { PagedClientRole } from '@/types'
+import { Pagination } from '@/features/shared/Pagination'
+import { TableBody } from '@/features/Roles/TableBody'
+import { TableHeader } from '@/features/Roles/TableHeader'
+import { RolesTableSkeleton } from '@/features/Roles/RolesTableSkeleton'
 
 interface RolesTableProps {
   data: PagedClientRole | undefined

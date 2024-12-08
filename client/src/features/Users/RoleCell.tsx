@@ -1,8 +1,8 @@
-import { Table } from '../../components/Table'
-import { PagedClientRole } from '../../types'
-import { roleKeys } from '../Roles/queries'
+import { Table } from '@/components/Table'
+import { PagedClientRole } from '@/types'
+import { roleKeys } from '@/features/Roles/queries'
 import { useQueryClient } from '@tanstack/react-query'
-import { useFilters } from '../../context/FilterContext/useFilters'
+import { useFilters } from '@/context/FilterContext/useFilters'
 
 export const RoleCell = ({ id }: { id: string }) => {
   const queryClient = useQueryClient()

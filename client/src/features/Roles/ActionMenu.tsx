@@ -9,8 +9,8 @@ import {
   TextField,
 } from '@radix-ui/themes'
 import { useState } from 'react'
-import { useUpdateRoleMutation } from './queries'
-import { Role } from '../../../../server/src/models'
+import { useUpdateRoleMutation } from '@/features/Roles/queries'
+import { Role } from '@/server/models'
 
 interface ActionMenuProps {
   role: Role

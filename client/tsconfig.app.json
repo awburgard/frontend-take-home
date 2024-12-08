@@ -20,7 +20,15 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/features/*": ["./src/features/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/server/*": ["../server/src/*"],
+      "@/utils/*": ["./src/utils/*"]
+    }
   },
   "include": ["src"]
 }

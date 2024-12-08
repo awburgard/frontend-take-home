@@ -1,4 +1,4 @@
-import { Table } from '.'
+import { Table } from '@/components/Table'
 
 interface TableFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode

@@ -1,7 +1,7 @@
-import { Table } from '../../components/Table'
+import { Table } from '@/components/Table'
 
-import { PagedClientUser } from '../../types'
-import { TableRow } from './TableRow'
+import { PagedClientUser } from '@/types'
+import { TableRow } from '@/features/Users/TableRow'
 
 interface TableBodyProps {
   data: PagedClientUser | undefined

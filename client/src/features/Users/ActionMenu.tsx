@@ -8,7 +8,7 @@ import {
   AlertDialog,
 } from '@radix-ui/themes'
 import { useState } from 'react'
-import { useDeleteUserMutation } from './queries'
+import { useDeleteUserMutation } from '@/features/Users/queries'
 
 interface ActionMenuProps {
   userId: string

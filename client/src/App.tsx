@@ -1,12 +1,12 @@
-import { Tabs } from './components/Tab'
+import { Tabs } from '@/components/Tab'
 import { Box, Container } from '@radix-ui/themes'
 
 import { useSuspenseQueries } from '@tanstack/react-query'
 
-import { userKeys, fetchUsers } from './features/Users/queries'
-import { roleKeys, fetchRoles } from './features/Roles/queries'
-import Users from './features/Users'
-import Roles from './features/Roles'
+import { userKeys, fetchUsers } from '@/features/Users/queries'
+import { roleKeys, fetchRoles } from '@/features/Roles/queries'
+import Users from '@/features/Users'
+import Roles from '@/features/Roles'
 
 const defaultFilters = { page: 1, search: '' }
 

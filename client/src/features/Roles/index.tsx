@@ -1,11 +1,10 @@
 import { useCallback } from 'react'
-import { Search } from '../Search'
-import { useDebounce } from '../../hooks/useDebouce'
-import { useRolesQuery } from './queries'
-
-import { RolesTable } from './Table'
+import { Search } from '@/features/Search'
+import { useDebounce } from '@/hooks/useDebouce'
+import { useRolesQuery } from '@/features/Roles/queries'
+import { RolesTable } from '@/features/Roles/Table'
 import { Box, Flex } from '@radix-ui/themes'
-import { useFilters } from '../../context/FilterContext/useFilters'
+import { useFilters } from '@/context/FilterContext/useFilters'
 
 export default function Roles() {
   const { filters, setFilters } = useFilters('roles')

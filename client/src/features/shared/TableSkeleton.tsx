@@ -1,5 +1,5 @@
 import { Skeleton } from '@radix-ui/themes'
-import { Table } from '../../components/Table'
+import { Table } from '@/components/Table'
 
 type TableSkeletonProps = {
   Headers: () => JSX.Element

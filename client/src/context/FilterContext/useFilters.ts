@@ -1,5 +1,8 @@
 import { useContext } from 'react'
-import { FilterContext, Filters } from './FilterContextType'
+import {
+  FilterContext,
+  Filters,
+} from '@/context/FilterContext/FilterContextType'
 
 export const useFilters = (feature: string) => {
   const context = useContext(FilterContext)

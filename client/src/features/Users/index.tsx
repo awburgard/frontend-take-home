@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
-import { useUsersQuery } from './queries'
-import { Search } from '../Search'
-import { useDebounce } from '../../hooks/useDebouce'
+import { useUsersQuery } from '@/features/Users/queries'
+import { Search } from '@/features/Search'
+import { useDebounce } from '@/hooks/useDebouce'
 
-import { UsersTable } from './Table'
-import { AddUser } from './AddUser'
+import { UsersTable } from '@/features/Users/Table'
+import { AddUser } from '@/features/Users/AddUser'
 import { Box, Flex } from '@radix-ui/themes'
-import { useFilters } from '../../context/FilterContext/useFilters'
+import { useFilters } from '@/context/FilterContext/useFilters'
 
 export default function Users() {
   const { filters, setFilters } = useFilters('users')

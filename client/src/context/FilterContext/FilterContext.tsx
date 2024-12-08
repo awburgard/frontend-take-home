@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { FilterContext, Filters } from './FilterContextType'
+import {
+  FilterContext,
+  Filters,
+} from '@/context/FilterContext/FilterContextType'
 
 export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

@@ -1,6 +1,6 @@
 import { Box, Button } from '@radix-ui/themes'
-import { Table } from '../../components/Table'
-import { PagedData } from '../../../../server/src/models'
+import { Table } from '@/components/Table'
+import { PagedData } from '@/server/models'
 
 interface PaginationProps<T> {
   data: PagedData<T> | undefined

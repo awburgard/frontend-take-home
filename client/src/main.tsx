@@ -1,15 +1,16 @@
+import '@radix-ui/themes/styles.css'
+import 'react-toastify/dist/ReactToastify.css'
+
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import App from '@/App.tsx'
 import { Theme } from '@radix-ui/themes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ToastContainer } from 'react-toastify'
 
-import '@radix-ui/themes/styles.css'
-import 'react-toastify/dist/ReactToastify.css'
-import { FilterProvider } from './context/FilterContext/FilterContext.tsx'
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.tsx'
-import { AppSkeleton } from './components/AppSkeleton/AppSkeleton.tsx'
+import { FilterProvider } from '@/context/FilterContext/FilterContext.tsx'
+import ErrorBoundary from '@/components/ErrorBoundary'
+import AppSkeleton from '@/components/AppSkeleton'
 
 const queryClient = new QueryClient({
   defaultOptions: {

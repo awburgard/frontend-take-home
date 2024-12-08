@@ -1,9 +1,9 @@
-import { Table } from '../../components/Table'
-import { PagedClientUser } from '../../types'
-import { Pagination } from '../shared/Pagination'
-import { TableBody } from './TableBody'
-import { TableHeader } from './TableHeader'
-import { UsersTableSkeleton } from './UsersTableSkeleton'
+import { Table } from '@/components/Table'
+import { PagedClientUser } from '@/types'
+import { Pagination } from '@/features/shared/Pagination'
+import { TableBody } from '@/features/Users/TableBody'
+import { TableHeader } from '@/features/Users/TableHeader'
+import { UsersTableSkeleton } from '@/features/Users/UsersTableSkeleton'
 
 interface UsersTableProps {
   data: PagedClientUser | undefined

@@ -4,8 +4,9 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { PagedClientUser } from '../../types'
+import { PagedClientUser } from '@/types'
 import { toast } from 'react-toastify'
+
 interface UserFilters {
   page: number
   search?: string

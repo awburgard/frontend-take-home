@@ -1,4 +1,4 @@
-import { TextField } from '../../components/TextField'
+import { TextField } from '@/components/TextField'
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 
 interface SearchProps {
