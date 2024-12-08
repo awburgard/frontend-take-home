@@ -4,10 +4,11 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
 
 import { useFilters } from '@/context/FilterContext/useFilters'
 import { ClientRole, PagedClientRole } from '@/types'
+import { toastError } from '@/utils/toats'
+import { toastSuccess } from '@/utils/toats'
 
 interface RoleFilters {
   page: number
@@ -33,7 +34,7 @@ export async function fetchRoles(
 
   if (!response.ok) {
     const errorData = await response.json()
-    toast.error(errorData.message || 'Failed to fetch roles')
+    toastError({ message: errorData.message || 'Failed to fetch roles' })
     throw new Error(errorData.message || 'Failed to fetch roles')
   }
 
@@ -45,7 +46,7 @@ async function fetchRole(id: string): Promise<ClientRole> {
 
   if (!response.ok) {
     const errorData = await response.json()
-    toast.error(errorData.message || 'Failed to fetch role')
+    toastError({ message: errorData.message || 'Failed to fetch role' })
     throw new Error(errorData.message || 'Failed to fetch role')
   }
 
@@ -91,14 +92,10 @@ export const useUpdateRoleMutation = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: roleKeys.all })
       queryClient.setQueryData(roleKeys.list(filters), data)
-      toast.success('Role updated', {
-        position: 'bottom-right',
-      })
+      toastSuccess({ message: 'Role updated' })
     },
     onError: (error) => {
-      toast.error(error.message, {
-        position: 'bottom-right',
-      })
+      toastError({ message: error.message })
     },
   })
 }

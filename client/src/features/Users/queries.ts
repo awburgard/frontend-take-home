@@ -4,9 +4,10 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
 
 import { PagedClientUser } from '@/types'
+import { toastError } from '@/utils/toats'
+import { toastSuccess } from '@/utils/toats'
 
 interface UserFilters {
   page: number
@@ -67,15 +68,11 @@ export const useDeleteUserMutation = () => {
       queryClient.invalidateQueries({ queryKey: userKeys.all })
       queryClient.setQueryData(userKeys.list({ page: 1 }), data)
 
-      toast.success('User deleted', {
-        position: 'bottom-right',
-      })
+      toastSuccess({ message: 'User deleted' })
     },
     onError: (error) => {
       console.error(error)
-      toast.error('Failed to delete user', {
-        position: 'bottom-right',
-      })
+      toastError({ message: 'Failed to delete user' })
     },
   })
 }
