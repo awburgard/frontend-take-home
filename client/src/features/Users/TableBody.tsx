@@ -8,7 +8,7 @@ interface TableBodyProps {
 
 export const TableBody = ({ data }: TableBodyProps) => {
   return (
-    <Table.Body>
+    <Table.Body style={{ gridArea: 'content' }}>
       {data?.data.map((user) => {
         return <TableRow key={user.id} user={user} />
       })}

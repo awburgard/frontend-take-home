@@ -24,7 +24,7 @@ export const Pagination = <T,>({ data, setPage }: PaginationProps<T>) => {
   if (!showPagination) return null
 
   return (
-    <Table.Footer>
+    <Table.Footer style={{ gridArea: 'footer' }}>
       <Box>
         <Button
           onClick={handlePrevious}
