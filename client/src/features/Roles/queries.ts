@@ -30,7 +30,7 @@ export async function fetchRoles(
     page: filters.page.toString(),
     ...(filters.search ? { search: filters.search } : {}),
   }).toString()
-  const response = await fetch(`http://localhost:3002/roles?${query}`)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/roles?${query}`)
 
   if (!response.ok) {
     const errorData = await response.json()
@@ -42,7 +42,7 @@ export async function fetchRoles(
 }
 
 async function fetchRole(id: string): Promise<ClientRole> {
-  const response = await fetch(`http://localhost:3002/roles/${id}`)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/roles/${id}`)
 
   if (!response.ok) {
     const errorData = await response.json()
@@ -71,11 +71,14 @@ export const useRoleQuery = (id: string) => {
 }
 
 async function updateRole(role: ClientRole): Promise<ClientRole> {
-  const response = await fetch(`http://localhost:3002/roles/${role.id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(role),
-  })
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/roles/${role.id}`,
+    {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(role),
+    }
+  )
 
   if (!response.ok) {
     const errorData = await response.json()

@@ -32,7 +32,7 @@ export const TableRow = ({ user }: TableRowProps) => {
           name={`${user.first} ${user.last}`}
           render={(toggleDialog) => (
             <>
-              <DropdownMenu.Item>Edit</DropdownMenu.Item>
+              <DropdownMenu.Item onClick={toggleDialog}>Edit</DropdownMenu.Item>
               <DropdownMenu.Item onClick={toggleDialog}>
                 Delete
               </DropdownMenu.Item>
