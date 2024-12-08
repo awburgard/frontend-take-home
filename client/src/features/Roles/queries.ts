@@ -57,7 +57,8 @@ export const useRolesQuery = (filters: RoleFilters) => {
   return useQuery({
     queryKey: roleKeys.list(filters),
     queryFn: () => fetchRoles(filters),
-    placeholderData: keepPreviousData, // Ensures data doesn't flicker between pages
+    placeholderData: keepPreviousData, // Ensures data doesn't flicker between pages,
+    retry: 3,
   })
 }
 

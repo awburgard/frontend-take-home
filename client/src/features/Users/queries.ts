@@ -43,7 +43,8 @@ export const useUsersQuery = (filters: UserFilters) => {
   return useQuery({
     queryKey: userKeys.list(filters),
     queryFn: () => fetchUsers(filters),
-    placeholderData: keepPreviousData, // Ensures data doesn't flicker between pages
+    placeholderData: keepPreviousData, // Ensures data doesn't flicker between pages,
+    retry: 3,
   })
 }
 
@@ -71,8 +72,7 @@ export const useDeleteUserMutation = () => {
       toastSuccess({ message: 'User deleted' })
     },
     onError: (error) => {
-      console.error(error)
-      toastError({ message: 'Failed to delete user' })
+      toastError({ message: error.message })
     },
   })
 }
