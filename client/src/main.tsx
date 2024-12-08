@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { Theme } from '@radix-ui/themes'
@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify'
 import '@radix-ui/themes/styles.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { FilterProvider } from './context/FilterContext/FilterContext.tsx'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.tsx'
+import { AppSkeleton } from './components/AppSkeleton/AppSkeleton.tsx'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +29,11 @@ createRoot(document.getElementById('root')!).render(
     >
       <QueryClientProvider client={queryClient}>
         <FilterProvider>
-          <App />
+          <Suspense fallback={<AppSkeleton />}>
+            <ErrorBoundary fallback={<div>Something went wrong.</div>}>
+              <App />
+            </ErrorBoundary>
+          </Suspense>
           <ToastContainer />
         </FilterProvider>
       </QueryClientProvider>

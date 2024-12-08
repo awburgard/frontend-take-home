@@ -1,5 +1,3 @@
-import Users from './features/Users'
-import Roles from './features/Roles'
 import { Tabs } from './components/Tab'
 import { Box, Container } from '@radix-ui/themes'
 
@@ -7,18 +5,22 @@ import { useSuspenseQueries } from '@tanstack/react-query'
 
 import { userKeys, fetchUsers } from './features/Users/queries'
 import { roleKeys, fetchRoles } from './features/Roles/queries'
+import Users from './features/Users'
+import Roles from './features/Roles'
+
+const defaultFilters = { page: 1, search: '' }
 
 function App() {
   useSuspenseQueries({
     queries: [
       {
-        queryKey: userKeys.list({ page: 1, search: '' }),
-        queryFn: () => fetchUsers({ page: 1, search: '' }),
+        queryKey: userKeys.list(defaultFilters),
+        queryFn: () => fetchUsers(defaultFilters),
         staleTime: Infinity,
       },
       {
-        queryKey: roleKeys.list({ page: 1, search: '' }),
-        queryFn: () => fetchRoles({ page: 1, search: '' }),
+        queryKey: roleKeys.list(defaultFilters),
+        queryFn: () => fetchRoles(defaultFilters),
         staleTime: Infinity,
       },
     ],
