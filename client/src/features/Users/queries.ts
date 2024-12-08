@@ -1,11 +1,12 @@
 import {
-  useQuery,
   keepPreviousData,
   useMutation,
+  useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { PagedClientUser } from '@/types'
 import { toast } from 'react-toastify'
+
+import { PagedClientUser } from '@/types'
 
 interface UserFilters {
   page: number

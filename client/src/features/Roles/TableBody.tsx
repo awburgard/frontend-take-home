@@ -1,9 +1,9 @@
-import { formatDate } from '@/utils/formatDate'
+import { DropdownMenu } from '@radix-ui/themes'
 
 import { Table } from '@/components/Table'
-import { PagedClientRole } from '@/types'
 import { ActionMenu } from '@/features/Roles/ActionMenu'
-import { DropdownMenu } from '@radix-ui/themes'
+import { PagedClientRole } from '@/types'
+import { formatDate } from '@/utils/formatDate'
 
 interface TableBodyProps {
   data: PagedClientRole | undefined

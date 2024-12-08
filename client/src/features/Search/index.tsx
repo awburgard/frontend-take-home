@@ -1,5 +1,6 @@
-import { TextField } from '@/components/TextField'
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
+
+import { TextField } from '@/components/TextField'
 
 interface SearchProps {
   placeholder: string

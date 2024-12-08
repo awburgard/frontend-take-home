@@ -1,4 +1,4 @@
-import { PagedData, User, Role } from '../../../server/src/models'
+import { PagedData, Role, User } from '@/server/models'
 
 export type PagedClientUser = PagedData<User>
 export type PagedClientRole = PagedData<Role>

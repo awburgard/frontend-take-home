@@ -1,4 +1,5 @@
 import { Table as RadixTable } from '@radix-ui/themes'
+
 import { TableFooter } from '@/components/Table/Footer'
 
 export const Table = ({ children, ...props }: RadixTable.RootProps) => {

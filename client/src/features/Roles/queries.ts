@@ -1,13 +1,13 @@
 import {
-  useQuery,
   keepPreviousData,
   useMutation,
+  useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { ClientRole, PagedClientRole } from '@/types'
-import { useFilters } from '@/context/FilterContext/useFilters'
-
 import { toast } from 'react-toastify'
+
+import { useFilters } from '@/context/FilterContext/useFilters'
+import { ClientRole, PagedClientRole } from '@/types'
 
 interface RoleFilters {
   page: number

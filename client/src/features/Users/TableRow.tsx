@@ -1,8 +1,9 @@
 import { Avatar, DropdownMenu, Flex } from '@radix-ui/themes'
+
 import { Table } from '@/components/Table'
-import { RoleCell } from '@/features/Users/RoleCell'
-import { CreatedAtCell } from '@/features/Users/CreatedAtCell'
 import { ActionMenu } from '@/features/Users/ActionMenu'
+import { CreatedAtCell } from '@/features/Users/CreatedAtCell'
+import { RoleCell } from '@/features/Users/RoleCell'
 import { ClientUser } from '@/types'
 
 interface TableRowProps {

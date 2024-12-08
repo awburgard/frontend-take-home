@@ -1,13 +1,14 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import {
-  DropdownMenu,
-  IconButton,
-  Button,
-  Flex,
-  Strong,
   AlertDialog,
+  Button,
+  DropdownMenu,
+  Flex,
+  IconButton,
+  Strong,
 } from '@radix-ui/themes'
 import { useState } from 'react'
+
 import { useDeleteUserMutation } from '@/features/Users/queries'
 
 interface ActionMenuProps {
