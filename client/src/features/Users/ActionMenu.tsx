@@ -1,82 +1,52 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import {
-  AlertDialog,
-  Button,
-  DropdownMenu,
-  Flex,
-  IconButton,
-  Strong,
-} from '@radix-ui/themes'
-import { useState } from 'react'
+import { DropdownMenu, IconButton } from '@radix-ui/themes'
+import React, { forwardRef, useImperativeHandle, useState } from 'react'
 
-import { useDeleteUserMutation } from '@/features/Users/queries'
+import { ClientUser } from '@/types'
 
+import { DeleteUserDialog } from './DeleteUserDialog'
 interface ActionMenuProps {
-  userId: string
-  name: string
-  render: (toggleDialog: () => void) => React.ReactNode
+  user: ClientUser
+  render: (toggleDialog: (dialogType: string) => void) => React.ReactNode
 }
 
-export const ActionMenu = ({ userId, name, render }: ActionMenuProps) => {
-  const [isDialogOpen, setDialogOpen] = useState(false)
+export const ActionMenu = forwardRef(
+  ({ user, render }: ActionMenuProps, ref) => {
+    const [dialogType, setDialogType] = useState<string | null>(null)
 
-  const toggleDialog = () => setDialogOpen((prev) => !prev)
+    useImperativeHandle(ref, () => ({
+      openDialog: (type: string) => setDialogType(type),
+      closeDialog: () => setDialogType(null),
+    }))
 
-  const { mutate: deleteUser } = useDeleteUserMutation()
+    return (
+      <>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <IconButton
+              variant='ghost'
+              color='gray'
+              radius='full'
+              aria-label='Actions'
+            >
+              <DotsHorizontalIcon width='16px' height='16px' />
+            </IconButton>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content sideOffset={5}>
+            {render((type) => setDialogType(type))}
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
 
-  const handleDelete = () => {
-    deleteUser(userId)
+        {dialogType === 'delete' && (
+          <DeleteUserDialog
+            name={`${user.first} ${user.last}`}
+            userId={user.id}
+            setDialogType={setDialogType}
+          />
+        )}
+
+        {/* Add other dialogs here based on dialogType */}
+      </>
+    )
   }
-
-  return (
-    <>
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <IconButton
-            variant='ghost'
-            color='gray'
-            radius='full'
-            aria-label='Actions'
-          >
-            <DotsHorizontalIcon width='16px' height='16px' />
-          </IconButton>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content sideOffset={5}>
-          {render(toggleDialog)}
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <AlertDialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
-        <AlertDialog.Content>
-          <AlertDialog.Title>Delete user</AlertDialog.Title>
-          <AlertDialog.Description>
-            Are you sure? The user <Strong>{name}</Strong> will be permanently
-            deleted.
-          </AlertDialog.Description>
-          <Flex gap='3' mt='4' justify='end'>
-            <AlertDialog.Action>
-              <Button
-                variant='outline'
-                color='gray'
-                onClick={toggleDialog}
-                size='2'
-              >
-                Cancel
-              </Button>
-            </AlertDialog.Action>
-            <AlertDialog.Action>
-              <Button
-                size='2'
-                onClick={handleDelete}
-                color='red'
-                variant='soft'
-              >
-                Delete User
-              </Button>
-            </AlertDialog.Action>
-          </Flex>
-        </AlertDialog.Content>
-      </AlertDialog.Root>
-    </>
-  )
-}
+)

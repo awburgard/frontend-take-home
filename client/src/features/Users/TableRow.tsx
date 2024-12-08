@@ -28,12 +28,13 @@ export const TableRow = ({ user }: TableRowProps) => {
       <CreatedAtCell createdAt={user.createdAt} />
       <Table.Cell minWidth='300'>
         <ActionMenu
-          userId={user.id}
-          name={`${user.first} ${user.last}`}
+          user={user}
           render={(toggleDialog) => (
             <>
-              <DropdownMenu.Item onClick={toggleDialog}>Edit</DropdownMenu.Item>
-              <DropdownMenu.Item onClick={toggleDialog}>
+              <DropdownMenu.Item onClick={() => toggleDialog('edit')}>
+                Edit
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onClick={() => toggleDialog('delete')}>
                 Delete
               </DropdownMenu.Item>
             </>

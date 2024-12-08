@@ -1,22 +1,27 @@
 import { AlertDialog, Button, Flex, Strong } from '@radix-ui/themes'
 
+import { useDeleteUserMutation } from '@/features/Users/queries'
+
 interface DeleteUserDialogProps {
-  isDialogOpen: boolean
-  setDialogOpen: (open: boolean) => void
   name: string
-  handleDelete: () => void
-  toggleDialog: () => void
+  setDialogType: (type: string | null) => void
+  userId: string
 }
 
 export const DeleteUserDialog = ({
-  isDialogOpen,
-  setDialogOpen,
   name,
-  handleDelete,
-  toggleDialog,
+  setDialogType,
+  userId,
 }: DeleteUserDialogProps) => {
+  const { mutate: deleteUser } = useDeleteUserMutation()
+
+  const handleDelete = () => {
+    deleteUser(userId)
+    setDialogType(null)
+  }
+
   return (
-    <AlertDialog.Root open={isDialogOpen} onOpenChange={setDialogOpen}>
+    <AlertDialog.Root open={true} onOpenChange={() => setDialogType(null)}>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete user</AlertDialog.Title>
         <AlertDialog.Description>
@@ -28,7 +33,7 @@ export const DeleteUserDialog = ({
             <Button
               variant='outline'
               color='gray'
-              onClick={toggleDialog}
+              onClick={() => setDialogType(null)}
               size='2'
             >
               Cancel
