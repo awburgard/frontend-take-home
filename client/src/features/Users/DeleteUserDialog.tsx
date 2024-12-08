@@ -15,13 +15,17 @@ export const DeleteUserDialog = ({
 }: DeleteUserDialogProps) => {
   const { mutate: deleteUser } = useDeleteUserMutation()
 
-  const handleDelete = () => {
-    deleteUser(userId)
+  const closeDialog = () => {
     setDialogType(null)
   }
 
+  const handleDelete = () => {
+    deleteUser(userId)
+    closeDialog()
+  }
+
   return (
-    <AlertDialog.Root open={true} onOpenChange={() => setDialogType(null)}>
+    <AlertDialog.Root open={true} onOpenChange={closeDialog}>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete user</AlertDialog.Title>
         <AlertDialog.Description>
@@ -33,7 +37,7 @@ export const DeleteUserDialog = ({
             <Button
               variant='outline'
               color='gray'
-              onClick={() => setDialogType(null)}
+              onClick={closeDialog}
               size='2'
             >
               Cancel

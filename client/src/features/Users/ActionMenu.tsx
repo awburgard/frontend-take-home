@@ -2,9 +2,10 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { DropdownMenu, IconButton } from '@radix-ui/themes'
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 
+import { DeleteUserDialog } from '@/features/Users/DeleteUserDialog'
+import { EditUserDialog } from '@/features/Users/EditUserDialog'
 import { ClientUser } from '@/types'
 
-import { DeleteUserDialog } from './DeleteUserDialog'
 interface ActionMenuProps {
   user: ClientUser
   render: (toggleDialog: (dialogType: string) => void) => React.ReactNode
@@ -45,7 +46,9 @@ export const ActionMenu = forwardRef(
           />
         )}
 
-        {/* Add other dialogs here based on dialogType */}
+        {dialogType === 'edit' && (
+          <EditUserDialog user={user} setDialogType={setDialogType} />
+        )}
       </>
     )
   }

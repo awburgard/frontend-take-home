@@ -33,7 +33,7 @@ const NewUserForm: React.FC<NewUserFormProps> = () => {
         onChange={(e) => setLast(e.target.value)}
       />
       <TextField
-        placeholder='Role ID'
+        placeholder='Role'
         value={roleId}
         onChange={(e) => setRoleId(e.target.value)}
       />

@@ -33,7 +33,7 @@ export const TableBody = ({ data }: TableBodyProps) => {
                   role={role}
                   render={(toggleDialog) => (
                     <>
-                      <DropdownMenu.Item onClick={toggleDialog}>
+                      <DropdownMenu.Item onClick={() => toggleDialog('edit')}>
                         Edit
                       </DropdownMenu.Item>
                       <DropdownMenu.Item>Delete</DropdownMenu.Item>
