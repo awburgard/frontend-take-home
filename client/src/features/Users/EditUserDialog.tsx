@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { TextField } from '@/components/TextField'
 import { RoleSelector } from '@/features/shared/RoleSelector'
 import { ClientUser } from '@/types'
+import { DialogType } from '@/types'
 
 interface EditUserDialogProps {
   user: ClientUser
-  setDialogType: (type: string | null) => void
+  setDialogType: (type: DialogType) => void
 }
 
 export const EditUserDialog = ({

@@ -1,10 +1,11 @@
 import { AlertDialog, Button, Flex, Strong } from '@radix-ui/themes'
 
 import { useDeleteUserMutation } from '@/features/Users/queries'
+import { DialogType } from '@/types'
 
 interface DeleteUserDialogProps {
   name: string
-  setDialogType: (type: string | null) => void
+  setDialogType: (type: DialogType) => void
   userId: string
 }
 

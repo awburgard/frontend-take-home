@@ -1,11 +1,11 @@
 import { ActionMenu } from '@/features/shared/ActionMenu'
 import { DeleteUserDialog } from '@/features/Users/DeleteUserDialog'
 import { EditUserDialog } from '@/features/Users/EditUserDialog'
-import { ClientUser } from '@/types'
+import { ClientUser, DialogType } from '@/types'
 
 interface ActionMenuProps {
   user: ClientUser
-  render: (toggleDialog: (dialogType: string) => void) => React.ReactNode
+  render: (toggleDialog: (dialogType: DialogType) => void) => React.ReactNode
 }
 
 export const UserActionMenu = ({ user, render }: ActionMenuProps) => {

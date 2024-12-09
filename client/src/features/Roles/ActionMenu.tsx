@@ -1,11 +1,12 @@
 import { Role } from '@/server/models'
+import { DialogType } from '@/types'
 
 import { ActionMenu } from '../shared/ActionMenu'
 import { EditRoleDialog } from './EditRoleDialog'
 
 interface ActionMenuProps {
   role: Role
-  render: (toggleDialog: (dialogType: string) => void) => React.ReactNode
+  render: (toggleDialog: (dialogType: DialogType) => void) => React.ReactNode
 }
 
 export const RolesActionMenu = ({ role, render }: ActionMenuProps) => {

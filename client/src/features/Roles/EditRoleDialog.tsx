@@ -1,13 +1,13 @@
 import { Button, Dialog, Flex, Strong, TextField } from '@radix-ui/themes'
 import { useState } from 'react'
 
-import { ClientRole } from '@/types'
+import { ClientRole, DialogType } from '@/types'
 
 import { useUpdateRoleMutation } from './queries'
 
 interface EditRoleDialogProps {
   role: ClientRole
-  setDialogType: (type: string | null) => void
+  setDialogType: (type: DialogType) => void
 }
 
 export const EditRoleDialog = ({

@@ -2,11 +2,13 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { DropdownMenu, IconButton } from '@radix-ui/themes'
 import { ReactNode, useState } from 'react'
 
+import { DialogType } from '@/types'
+
 interface ActionMenuProps {
-  render: (toggleDialog: (dialogType: string) => void) => ReactNode
+  render: (toggleDialog: (dialogType: DialogType) => void) => ReactNode
   dialogs: Record<
     string,
-    (setDialogType: (type: string | null) => void) => ReactNode
+    (setDialogType: (type: DialogType) => void) => ReactNode
   >
 }
 
