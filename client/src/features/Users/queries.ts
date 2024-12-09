@@ -5,6 +5,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
+import { useFilters } from '@/context/FilterContext/useFilters'
 import { ClientUser, PagedClientUser } from '@/types'
 import { toastError } from '@/utils/toats'
 import { toastSuccess } from '@/utils/toats'
@@ -64,11 +65,20 @@ async function deleteUser(id: string): Promise<PagedClientUser> {
 
 export const useDeleteUserMutation = () => {
   const queryClient = useQueryClient()
+  const { filters } = useFilters('users')
   return useMutation({
     mutationFn: (id: string) => deleteUser(id),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: userKeys.all })
-      queryClient.setQueryData(userKeys.list({ page: 1 }), data)
+    onSuccess: (_, id) => {
+      queryClient.setQueryData(
+        userKeys.list({ page: filters.page, search: filters.search }),
+        (oldData: PagedClientUser | undefined) => {
+          if (!oldData) return oldData
+          return {
+            ...oldData,
+            data: oldData.data.filter((user) => user.id !== id),
+          }
+        }
+      )
 
       toastSuccess({ message: 'User deleted' })
     },

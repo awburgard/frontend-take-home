@@ -93,10 +93,59 @@ export const useUpdateRoleMutation = () => {
   const { filters } = useFilters('roles')
   return useMutation({
     mutationFn: (role: ClientRole) => updateRole(role),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: roleKeys.all })
-      queryClient.setQueryData(roleKeys.list(filters), data)
+    onSuccess: (updatedRole) => {
+      queryClient.setQueryData(
+        roleKeys.list({ page: filters.page, search: filters.search }),
+        (oldData: PagedClientRole | undefined) => {
+          if (!oldData) return oldData
+          return {
+            ...oldData,
+            data: oldData.data.map((role) =>
+              role.id === updatedRole.id ? updatedRole : role
+            ),
+          }
+        }
+      )
+
       toastSuccess({ message: 'Role updated' })
+    },
+    onError: (error) => {
+      toastError({ message: error.message })
+    },
+  })
+}
+
+async function deleteRole(id: string): Promise<ClientRole> {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/roles/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json()
+    throw new Error(errorData.message || 'Failed to delete role')
+  }
+
+  return response.json()
+}
+
+export const useDeleteRoleMutation = () => {
+  const queryClient = useQueryClient()
+  const { filters } = useFilters('roles')
+  return useMutation({
+    mutationFn: (id: string) => deleteRole(id),
+    onSuccess: (_, id) => {
+      queryClient.setQueryData(
+        roleKeys.list({ page: filters.page, search: filters.search }),
+        (oldData: PagedClientRole | undefined) => {
+          if (!oldData) return oldData
+          return {
+            ...oldData,
+            data: oldData.data.filter((role) => role.id !== id),
+          }
+        }
+      )
+
+      toastSuccess({ message: 'Role deleted' })
     },
     onError: (error) => {
       toastError({ message: error.message })
