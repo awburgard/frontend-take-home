@@ -1,13 +1,6 @@
-export function formatDate(dateString: string): string {
-  const date = new Date(dateString)
+import { format, isValid, parseISO } from 'date-fns'
 
-  if (isNaN(date.getTime())) {
-    return 'Invalid Date'
-  }
-
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  })
+export const formatDate = (dateString: string): string => {
+  const date = parseISO(dateString)
+  return isValid(date) ? format(date, 'MMM d, yyyy') : 'Invalid Date'
 }
