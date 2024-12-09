@@ -33,7 +33,7 @@ export const DeleteUserDialog = ({
           deleted.
         </AlertDialog.Description>
         <Flex gap='3' mt='4' justify='end'>
-          <AlertDialog.Action>
+          <AlertDialog.Cancel>
             <Button
               variant='outline'
               color='gray'
@@ -42,7 +42,7 @@ export const DeleteUserDialog = ({
             >
               Cancel
             </Button>
-          </AlertDialog.Action>
+          </AlertDialog.Cancel>
           <AlertDialog.Action>
             <Button size='2' onClick={handleDelete} color='red' variant='soft'>
               Delete User

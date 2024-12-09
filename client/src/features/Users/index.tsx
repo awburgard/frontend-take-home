@@ -1,4 +1,3 @@
-import { Box, Flex } from '@radix-ui/themes'
 import { useCallback } from 'react'
 
 import { useFilters } from '@/context/FilterContext/useFilters'
@@ -27,17 +26,13 @@ export default function Users() {
 
   return (
     <>
-      <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
-        <Box width='100%'>
-          <Search
-            placeholder='Search by first or last name...'
-            search={filters.search}
-            onChange={handleSearchChange}
-            disabled={isLoading}
-          />
-        </Box>
-        <AddUser />
-      </Flex>
+      <Search
+        placeholder='Search by first or last name...'
+        search={filters.search}
+        onChange={handleSearchChange}
+        disabled={isLoading}
+        actionButton={<AddUser />}
+      />
       <UsersTable
         data={data}
         setPage={(page) => setFilters({ ...filters, page })}

@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { Box, Flex } from '@radix-ui/themes'
 
 import { TextField } from '@/components/TextField'
 
@@ -8,6 +9,7 @@ interface SearchProps {
   icon?: boolean
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   disabled?: boolean
+  actionButton?: React.ReactNode
 }
 
 export const Search = ({
@@ -16,19 +18,25 @@ export const Search = ({
   search,
   onChange,
   disabled = false,
+  actionButton,
 }: SearchProps) => {
   return (
-    <TextField
-      placeholder={placeholder}
-      value={search}
-      onChange={onChange}
-      disabled={disabled}
-    >
-      {icon ? (
-        <TextField.Slot>
-          <MagnifyingGlassIcon />
-        </TextField.Slot>
-      ) : null}
-    </TextField>
+    <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
+      <Box width='100%'>
+        <TextField
+          placeholder={placeholder}
+          value={search}
+          onChange={onChange}
+          disabled={disabled}
+        >
+          {icon ? (
+            <TextField.Slot>
+              <MagnifyingGlassIcon />
+            </TextField.Slot>
+          ) : null}
+        </TextField>
+      </Box>
+      {actionButton ? actionButton : null}
+    </Flex>
   )
 }

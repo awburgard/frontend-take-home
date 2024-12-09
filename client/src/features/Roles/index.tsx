@@ -1,7 +1,7 @@
-import { Box, Flex } from '@radix-ui/themes'
 import { useCallback } from 'react'
 
 import { useFilters } from '@/context/FilterContext/useFilters'
+import { AddRole } from '@/features/Roles/AddRole'
 import { useRolesQuery } from '@/features/Roles/queries'
 import { RolesTable } from '@/features/Roles/Table'
 import { Search } from '@/features/Search'
@@ -26,16 +26,13 @@ export default function Roles() {
 
   return (
     <>
-      <Flex justify='between' align='center' gap='2' mb='5' width='100%'>
-        <Box width='100%'>
-          <Search
-            placeholder='Search by name or description...'
-            search={filters.search}
-            onChange={handleSearchChange}
-            disabled={isLoading}
-          />
-        </Box>
-      </Flex>
+      <Search
+        placeholder='Search by name or description...'
+        search={filters.search}
+        onChange={handleSearchChange}
+        disabled={isLoading}
+        actionButton={<AddRole />}
+      />
       <RolesTable
         data={data}
         setPage={(page) => setFilters({ ...filters, page })}
