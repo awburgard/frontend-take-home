@@ -29,14 +29,14 @@ createRoot(document.getElementById('root')!).render(
       scaling='100%'
     >
       <QueryClientProvider client={queryClient}>
-        <FilterProvider>
-          <Suspense fallback={<AppSkeleton />}>
-            <ErrorBoundary fallback={<div>Something went wrong.</div>}>
+        <Suspense fallback={<AppSkeleton />}>
+          <ErrorBoundary fallback={<div>Something went wrong.</div>}>
+            <FilterProvider>
               <App />
-            </ErrorBoundary>
-          </Suspense>
-          <ToastContainer />
-        </FilterProvider>
+            </FilterProvider>
+          </ErrorBoundary>
+        </Suspense>
+        <ToastContainer />
       </QueryClientProvider>
     </Theme>
   </StrictMode>

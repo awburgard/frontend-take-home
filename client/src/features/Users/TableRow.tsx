@@ -1,7 +1,7 @@
 import { Avatar, DropdownMenu, Flex } from '@radix-ui/themes'
 
 import { Table } from '@/components/Table'
-import { ActionMenu } from '@/features/Users/ActionMenu'
+import { UserActionMenu } from '@/features/Users/ActionMenu'
 import { CreatedAtCell } from '@/features/Users/CreatedAtCell'
 import { RoleCell } from '@/features/Users/RoleCell'
 import { ClientUser } from '@/types'
@@ -27,7 +27,7 @@ export const TableRow = ({ user }: TableRowProps) => {
       <RoleCell id={user.roleId} />
       <CreatedAtCell createdAt={user.createdAt} />
       <Table.Cell minWidth='300'>
-        <ActionMenu
+        <UserActionMenu
           user={user}
           render={(toggleDialog) => (
             <>

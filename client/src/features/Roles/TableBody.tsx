@@ -1,7 +1,7 @@
 import { DropdownMenu } from '@radix-ui/themes'
 
 import { Table } from '@/components/Table'
-import { ActionMenu } from '@/features/Roles/ActionMenu'
+import { RolesActionMenu } from '@/features/Roles/ActionMenu'
 import { NoResults } from '@/features/shared/NoResults'
 import { PagedClientRole } from '@/types'
 import { formatDate } from '@/utils/formatDate'
@@ -29,7 +29,7 @@ export const TableBody = ({ data }: TableBodyProps) => {
                 {formatDate(role.createdAt)}
               </Table.Cell>
               <Table.Cell>
-                <ActionMenu
+                <RolesActionMenu
                   role={role}
                   render={(toggleDialog) => (
                     <>
