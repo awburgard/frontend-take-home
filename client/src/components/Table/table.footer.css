@@ -1,0 +1,28 @@
+
+.rt-TableFooter {
+    border-top: 1px solid var(--gray-a5);
+  }
+  
+  .rt-TableFooterRow {
+    text-align: left;
+  }
+  
+  .rt-TableFooterRow {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  
+  .rt-TableFooterRow[data-justify='start'] {
+    text-align: left;
+  }
+  
+  .rt-TableFooterRow[data-justify='center'] {
+    text-align: center;
+  }
+  
+  .rt-TableFooterRow[data-justify='end'] {
+    text-align: right;
+  }
+  
